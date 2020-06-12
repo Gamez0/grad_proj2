@@ -25,9 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Kristina on 10/28/16.
- */
 
 public class Post implements Serializable, LazyLoading {
 
@@ -43,10 +40,11 @@ public class Post implements Serializable, LazyLoading {
     private long likesCount;
     private long watchersCount;
     private boolean hasComplain;
-    private String prayerFor;  //누구를 위한 기도인가? J를 위한, O를 위한, Y를 위한; 누구를 위한 기도문인가
+    private String prayerFor;
     private String prayerForId;
-    private ArrayList<String> coPrayer; //누구에게 기도 부탁할까?, 누가 나를 위해 기도해줄까?; 공개범위 설정
+    private ArrayList<String> coPrayer;
     private boolean isGlobal;   // 전체공개인가? default는 전체공개로!
+    private int emotionType;    // 0Joy 1Sadness 2Fear 3Anger 4Admiration
     private ItemType itemType;
 
 
@@ -180,6 +178,14 @@ public class Post implements Serializable, LazyLoading {
         this.prayerForId = prayerForId;
     }
 
+    public int getEmotionType() {
+        return emotionType;
+    }
+
+    public void setEmotionType(int emotionType) {
+        this.emotionType = emotionType;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
 
@@ -198,6 +204,7 @@ public class Post implements Serializable, LazyLoading {
         result.put("prayerForId",prayerForId);
         result.put("coPrayer",coPrayer);
         result.put("isGlobal",isGlobal);
+        result.put("emotionType",emotionType);
         result.put("createdDateText", FormatterUtil.getFirebaseDateFormat().format(new Date(createdDate)));
         return result;
     }

@@ -1,22 +1,17 @@
-<!--
-  ~  Copyright 2017 Rozdoum
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  ~
-  -->
 
 <resources>
-    <string name="app_name">프레이리스트</string>
+    <string name="title_1">초혼</string>
+    <string name="title_2">새</string>
+    <string name="title_3">세번째 시</string>
+    <string name="title_4">네번째 시</string>
+
+    <string name="text_1">산산이 부서진 이름이여!\n허공 중에 헤어진 이름이여!\n불러도 주인 없는 이름이여!\n부르다가 내가 죽을 이름이여!\n\n심중에 남아 있는 말 한 마디는\n끝긑내 마저 하지 못하였구나.\n사랑하던 그 사람이여!\n사랑하던 그 사람이여!
+    </string>
+    <string name="text_2">하늘에 깔아 논\n바람의 여울터에서나\n속삭이듯 서걱이는\n나무의 그늘에서나, 새는\n노래한다. 그것이 노래인 줄도 모르면서\n새는 그것이 사랑인 줄도 모르면서\n두 놈이 부리를\n서로의 죽지에 파묻고\n따스한 체온(體溫)을 나누어 가진다.\n2\n새는 울어\n뜻을 만들지 않고.\n지어서 교태(嬌態)로\n사랑을 가식(假飾)하지 않는다.\n...
+    </string>
+
+
+    <string name="app_name">팔각정</string>
     <string name="label_main_activity">모두의 프레이리스트</string>
     <string name="label_create_post_activity">작성중</string>
     <string name="label_add_post_activity">내 리스트에 쓰기</string>

@@ -87,8 +87,8 @@ class EditPostPresenter extends BaseCreatePostPresenter<EditPostView> {
         });
     }
 
-    public void addCheckIsPostChangedListener() {
-        PostManager.getInstance(context.getApplicationContext()).getPost(context, post.getId(), new OnPostChangedListener() {
+    public void addCheckIsPostChangedListener(int emotionType) {
+        PostManager.getInstance(context.getApplicationContext()).getPost(context, post.getId(), emotionType, new OnPostChangedListener() {
             @Override
             public void onObjectChanged(Post obj) {
                 if (obj == null) {

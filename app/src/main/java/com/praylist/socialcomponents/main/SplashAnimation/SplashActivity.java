@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.praylist.socialcomponents.main.main.MainActivity;
 import com.praylist.socialcomponents.main.onBoarding.onBoardingActivity;
+import com.praylist.socialcomponents.main.todayViewPager.viewPagerActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,11 +32,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(myid!=null){
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), viewPagerActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    Intent intent = new Intent(getApplicationContext(), onBoardingActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), viewPagerActivity.class);
                     startActivity(intent);
                     finish();
                 }

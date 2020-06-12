@@ -235,22 +235,22 @@ public class LikeController {
         });
     }
 
-    public void handleLikeClickAction(final BaseActivity baseActivity, final String postId) {
-        PostManager.getInstance(baseActivity.getApplicationContext()).getSinglePostValue(postId, new OnPostChangedListener() {
-            @Override
-            public void onObjectChanged(Post post) {
-                if (baseActivity.hasInternetConnection()) {
-                    doHandleLikeClickAction(baseActivity, post);
-                } else {
-                    showWarningMessage(baseActivity, R.string.internet_connection_failed);
-                }
-            }
-
-            @Override
-            public void onError(String errorText) {
-                baseActivity.showSnackBar(errorText);
-            }
-        });
+    public void handleLikeClickAction(final BaseActivity baseActivity, final String postId) { // 좋아요도 없으니깐 TODO 좋아요 만들고 싶으면
+//        PostManager.getInstance(baseActivity.getApplicationContext()).getSinglePostValue(postId, new OnPostChangedListener() {
+//            @Override
+//            public void onObjectChanged(Post post) {
+//                if (baseActivity.hasInternetConnection()) {
+//                    doHandleLikeClickAction(baseActivity, post);
+//                } else {
+//                    showWarningMessage(baseActivity, R.string.internet_connection_failed);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(String errorText) {
+//                baseActivity.showSnackBar(errorText);
+//            }
+//        });
     }
 
     private void showWarningMessage(BaseActivity baseActivity, int messageId) {

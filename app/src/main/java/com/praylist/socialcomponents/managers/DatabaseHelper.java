@@ -32,7 +32,11 @@ import com.praylist.socialcomponents.Constants;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.utils.LogUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +49,12 @@ public class DatabaseHelper {
 
     private static DatabaseHelper instance;
 
+    public static final List<String> EMOTION = Collections.unmodifiableList(Arrays.asList("joy", "sad", "fear","anger","admire"));
+    public static final String EMOTION_0 = "joy";
+    public static final String EMOTION_1 = "sad";
+    public static final String EMOTION_2 = "fear";
+    public static final String EMOTION_3 = "anger";
+    public static final String EMOTION_4 = "admire";
     public static final String POSTS_DB_KEY = "posts";
     public static final String PROFILES_DB_KEY = "profiles";
     public static final String POST_COMMENTS_DB_KEY = "post-comments";

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.adapters.SliderAdapter;
 import com.praylist.socialcomponents.main.main.MainActivity;
+import com.praylist.socialcomponents.main.todayViewPager.viewPagerActivity;
 
 public class onBoardingActivity extends AppCompatActivity {
     Handler handler = new Handler();
@@ -61,7 +62,7 @@ public class onBoardingActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), viewPagerActivity.class);// 튜토리얼 끝나고 실행하는 곳
                             startActivity(intent);
 
                             finish();

@@ -22,18 +22,18 @@ public class FollowPostViewHolder extends PostViewHolder {
         super(view, onClickListener, activity, isAuthorNeeded);
     }
 
-    public void bindData(FollowingPost followingPost) {
-        postManager.getSinglePostValue(followingPost.getPostId(), new OnPostChangedListener() {
-            @Override
-            public void onObjectChanged(Post obj) {
-                bindData(obj);
-            }
-
-            @Override
-            public void onError(String errorText) {
-                LogUtil.logError(TAG, "bindData", new RuntimeException(errorText));
-            }
-        });
+    public void bindData(FollowingPost followingPost) { // 팔로잉 없잖아 TODO 팔로잉 만들고 싶으면
+//        postManager.getSinglePostValue(followingPost.getPostId(), new OnPostChangedListener() {
+//            @Override
+//            public void onObjectChanged(Post obj) {
+//                bindData(obj);
+//            }
+//
+//            @Override
+//            public void onError(String errorText) {
+//                LogUtil.logError(TAG, "bindData", new RuntimeException(errorText));
+//            }
+//        });
     }
 
 }

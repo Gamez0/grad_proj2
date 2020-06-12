@@ -100,6 +100,7 @@
                     android:fontFamily="@string/font_primary"
                     android:textAppearance="@style/TextAppearance.Title"
                     android:layout_alignLeft="@+id/titleTextView"
+                    android:visibility="invisible"
                     />
                 <TextView
                     android:id="@+id/prayerForTextView"
@@ -110,6 +111,7 @@
                     android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.Title"
                     android:layout_alignLeft="@+id/titleTextView2"
+                    android:visibility="invisible"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,6 +121,7 @@
                     android:fontFamily="@string/font_primary"
                     android:textAppearance="@style/TextAppearance.Title"
                     android:layout_alignLeft="@+id/prayerForTextView"
+                    android:visibility="invisible"
                     />
             </LinearLayout>
 

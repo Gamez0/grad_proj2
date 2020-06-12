@@ -31,6 +31,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -43,6 +44,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.adapters.PostsAdapter;
+import com.praylist.socialcomponents.adapters.PostsByEmotionAdapter;
 import com.praylist.socialcomponents.adapters.PostsByUserAdapter;
 import com.praylist.socialcomponents.main.base.BaseActivity;
 import com.praylist.socialcomponents.main.followPosts.FollowingPostsActivity;
@@ -56,7 +58,7 @@ import com.praylist.socialcomponents.utils.AnimationUtils;
 public class MainActivity extends BaseActivity<MainView, MainPresenter> implements MainView {
 
     private PostsAdapter postsAdapter;
-    private PostsByUserAdapter postsUserAdapter;
+    private PostsByEmotionAdapter postsByEmotionAdapter;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
 
@@ -64,6 +66,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     private boolean counterAnimationInProgress = false;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeContainer;
+
+    private int emotionType;
 
 
     @Override
@@ -74,6 +78,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        emotionType = getIntent().getExtras().getInt("emotion");
+
+        Toast.makeText(getApplicationContext(),"onCreate() called. emotionType is "+emotionType,Toast.LENGTH_LONG).show();
         initContentView();
     }
 
@@ -81,6 +88,14 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     protected void onResume() {
         super.onResume();
         presenter.updateNewPostCounter();
+//        emotionType = getIntent().getExtras().getInt("emotion");
+//        Toast.makeText(getApplicationContext(),"resume() called. emotionType is "+emotionType,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        Toast.makeText(getApplicationContext(),"onRestart() called.",Toast.LENGTH_LONG).show();
     }
 
     @NonNull
@@ -149,15 +164,16 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
             initFloatingActionButton();
             //initPostListRecyclerView();
             //if login loadmypostslist but not login? then loadpostlist
-            //loadMyPostsList();// 꼼수지만 뜨게 할 수 있다!
+//            loadMyPostsList();// 꼼수지만 뜨게 할 수 있다!
 //            try{
 //                loadMyPostsList();
 //                Log.d(TAG,"loadMyPostsList init");
 //                Toast.makeText(getApplicationContext(),"loadMyPostsList()",Toast.LENGTH_LONG).show();
 //            }catch (Exception e){
-                //그냥 모두의 PrayLIst 가 첫 화면이면
+                //그냥 모든 포스트가 첫 화면이면
                 initPostListRecyclerView();
-                //Toast.makeText(getApplicationContext(),"initPostListRecyclerView()",Toast.LENGTH_LONG).show();
+
+            //Toast.makeText(getApplicationContext(),"initPostListRecyclerView()",Toast.LENGTH_LONG).show();
                 Log.d(TAG,"initPostListRecyclerView init");
 //            }
             initPostCounter();
@@ -173,7 +189,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
     private void initPostListRecyclerView() {
         recyclerView = findViewById(R.id.recycler_view);
-        postsAdapter = new PostsAdapter(this, swipeContainer);
+        postsAdapter = new PostsAdapter(this, swipeContainer, emotionType);
         postsAdapter.setCallback(new PostsAdapter.Callback() {
             @Override
             public void onItemClick(final Post post, final View view) {
@@ -204,15 +220,14 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     }
 
     private void loadMyPostsList() {// 내 프레이리스트
-        //setTitle("My PrayList");
         //presenter.onProfileMenuActionClicked();
-        if (recyclerView == null) {
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();// 사용자 userId 불러오는 법
+
+//            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();// 사용자 userId 불러오는 법
             recyclerView = findViewById(R.id.recycler_view);
-            postsUserAdapter = new PostsByUserAdapter(this, userId);
-            postsUserAdapter.setCallBack(new PostsByUserAdapter.CallBack() {
+            postsByEmotionAdapter = new PostsByEmotionAdapter(this, emotionType);
+            postsByEmotionAdapter.setCallBack(new PostsByUserAdapter.CallBack() {
                 @Override
-                public void onItemClick(final Post post, final View view) {
+                public void onItemClick(Post post, View view) {
                     presenter.onPostClick(post, view);
                 }
 
@@ -229,9 +244,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-            recyclerView.setAdapter(postsUserAdapter);
-            postsUserAdapter.loadPosts();
-        }
+            recyclerView.setAdapter(postsByEmotionAdapter);
+            postsByEmotionAdapter.loadPosts();
+
 
     }
 
@@ -282,6 +297,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     public void openPostDetailsActivity(Post post, View v) {
         Intent intent = new Intent(MainActivity.this, PostDetailsActivity.class);
         intent.putExtra(PostDetailsActivity.POST_ID_EXTRA_KEY, post.getId());
+        intent.putExtra("emotion",post.getEmotionType());
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 

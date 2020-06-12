@@ -55,7 +55,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="215dp"
-        android:text="PRAYLIST"
+        android:text="팔각정"
         android:fontFamily="@font/nanumsquareround_eb"
         android:textColor="@android:color/white"
         android:textSize="60sp"

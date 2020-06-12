@@ -84,7 +84,7 @@ public abstract class BaseCreatePostPresenter<V extends BaseCreatePostView> exte
 //                view.requestImageViewFocus();
 //
 //                cancel = true;
-                Uri uri = Uri.parse("android.resource://com.rozdoum.socialcomponents/drawable/"+R.drawable.ic_stub);
+                Uri uri = Uri.parse("android.resource://com.praylist.socialcomponents/drawable/"+R.drawable.ic_stub);
                 view.setImageUri(uri);
             }
 

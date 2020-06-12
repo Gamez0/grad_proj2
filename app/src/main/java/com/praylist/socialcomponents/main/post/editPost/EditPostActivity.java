@@ -37,11 +37,14 @@ public class EditPostActivity extends BaseCreatePostActivity<EditPostView, EditP
     public static final String POST_EXTRA_KEY = "EditPostActivity.POST_EXTRA_KEY";
     public static final int EDIT_POST_REQUEST = 33;
 
+    private int emotionType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_KEY);
+        emotionType = getIntent().getExtras().getInt("emotion");
         presenter.setPost(post);
         showProgress();
         fillUIFields(post);
@@ -50,7 +53,7 @@ public class EditPostActivity extends BaseCreatePostActivity<EditPostView, EditP
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.addCheckIsPostChangedListener();
+        presenter.addCheckIsPostChangedListener(emotionType);
     }
 
     @Override

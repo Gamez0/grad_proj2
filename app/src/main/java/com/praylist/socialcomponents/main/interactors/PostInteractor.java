@@ -1,20 +1,4 @@
-/*
- *
- * Copyright 2018 Rozdoum
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- *
- */
+
 
 package com.praylist.socialcomponents.main.interactors;
 
@@ -59,9 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Alexey on 05.06.18.
- */
 
 public class PostInteractor {
 
@@ -92,12 +73,13 @@ public class PostInteractor {
                 .getKey();
     }
 
-    public void createOrUpdatePost(Post post) {
+    public void createOrUpdatePost(Post post) { // 포스트 생성하는 곳
         try {
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + DatabaseHelper.POSTS_DB_KEY + "/" + post.getId(), postValues);
+            childUpdates.put("/" + DatabaseHelper.POSTS_DB_KEY+ "/"+ DatabaseHelper.EMOTION.get(post.getEmotionType()) +"/"+ post.getId(), postValues);
 
+//            childUpdates.put("/" + DatabaseHelper.EMOTION_4+ "/" + post.getId(), postValues);
             databaseHelper.getDatabaseReference().updateChildren(childUpdates);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -131,8 +113,8 @@ public class PostInteractor {
         });
     }
 
-    public void getPostList(final OnPostListChangedListener<Post> onDataChangedListener, long date) {
-        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY);
+    public void getPostList(final OnPostListChangedListener<Post> onDataChangedListener, long date, int emotionType) {//
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY+"/"+DatabaseHelper.EMOTION.get(emotionType));//감정
         Query postsQuery1, postsQuery2;
         postsQuery1 = databaseReference.orderByChild("isGlobal").equalTo(true);
 
@@ -150,7 +132,7 @@ public class PostInteractor {
                 PostListResult result = parsePostList(objectMap,false);
 
                 if (result.getPosts().isEmpty() && result.isMoreDataAvailable()) {
-                    getPostList(onDataChangedListener, result.getLastItemCreatedDate() - 1);
+                    getPostList(onDataChangedListener, result.getLastItemCreatedDate() - 1, emotionType);
                 } else {
                     onDataChangedListener.onListChanged(parsePostList(objectMap,false));
                 }
@@ -192,8 +174,36 @@ public class PostInteractor {
         });
     }
 
-    public ValueEventListener getPost(final String id, final OnPostChangedListener listener) {
-        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(id);
+    public void getPostListByEmotion(final OnDataChangedListener<Post> onDataChangedListener, int emotion) {
+        // 언제 getPostListByUser를 사용하지?
+        //Toast.makeText(this.context,"getPostListByUser() 사용됨.",Toast.LENGTH_LONG).show();
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY);
+        Query postsQuery;
+        postsQuery = databaseReference.orderByChild("emotionType").equalTo(emotion);
+
+        postsQuery.keepSynced(true);
+        postsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //if userid 와 유저id가 같으면 isMyList참 아니면 거짓
+//                String myid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                boolean isMyList=false;
+//                if(myid.equals(userId)){
+//                    isMyList =true;
+//                }
+                PostListResult result = parsePostList((Map<String, Object>) dataSnapshot.getValue(),true);
+                onDataChangedListener.onListChanged(result.getPosts());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                LogUtil.logError(TAG, "getPostListByUser(), onCancelled", new Exception(databaseError.getMessage()));
+            }
+        });
+    }
+
+    public ValueEventListener getPost(final String id, final OnPostChangedListener listener, int emotionType) {
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
         ValueEventListener valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -222,8 +232,8 @@ public class PostInteractor {
         return valueEventListener;
     }
 
-    public void getSinglePost(final String id, final OnPostChangedListener listener) {
-        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(id);
+    public void getSinglePost(final String id, final int emotionType, final OnPostChangedListener listener) {
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

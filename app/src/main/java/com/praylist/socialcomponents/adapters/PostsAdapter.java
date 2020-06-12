@@ -49,13 +49,15 @@ public class PostsAdapter extends BasePostsAdapter {
     private boolean isLoading = false;
     private boolean isMoreDataAvailable = true;
     private long lastLoadedItemCreatedDate;
+    private int emotionType;
     private SwipeRefreshLayout swipeContainer;
     private MainActivity mainActivity;
 
-    public PostsAdapter(final MainActivity activity, SwipeRefreshLayout swipeContainer) {
+    public PostsAdapter(final MainActivity activity, SwipeRefreshLayout swipeContainer, int emotionType) {
         super(activity);
         this.mainActivity = activity;
         this.swipeContainer = swipeContainer;
+        this.emotionType = emotionType;
         initRefreshLayout();
         setHasStableIds(true);
     }
@@ -147,8 +149,14 @@ public class PostsAdapter extends BasePostsAdapter {
         }
     }
 
-    private void addList(List<Post> list) {
+    private void addList(List<Post> list) { // joy를 받고 있으니 나머지는 아무것도 안 뜨지...!
+//        for(int i=0;i<list.size();i++){
+//            if(list.get(i).getEmotionType()==emotionType){
+//                this.postList.add(list.get(i));
+//            }
+//        }
         this.postList.addAll(list);
+//        this.postList.addAll(list);
         notifyDataSetChanged();
         isLoading = false;
     }
@@ -201,7 +209,7 @@ public class PostsAdapter extends BasePostsAdapter {
             }
         };
 
-        PostManager.getInstance(activity).getPostsList(onPostsDataChangedListener, nextItemCreatedDate);
+        PostManager.getInstance(activity).getPostsList(onPostsDataChangedListener, nextItemCreatedDate, emotionType);
     }
 
     private void hideProgress() {

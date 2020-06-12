@@ -74,21 +74,25 @@ public class PostManager extends FirebaseListenersManager {
         }
     }
 
-    public void getPostsList(OnPostListChangedListener<Post> onDataChangedListener, long date) {
-        postInteractor.getPostList(onDataChangedListener, date);
+    public void getPostsList(OnPostListChangedListener<Post> onDataChangedListener, long date, int emotionType) {
+        postInteractor.getPostList(onDataChangedListener, date, emotionType);
     }
 
     public void getPostsListByUser(OnDataChangedListener<Post> onDataChangedListener, String userId) {
         postInteractor.getPostListByUser(onDataChangedListener, userId);
     }
 
-    public void getPost(Context context, String postId, OnPostChangedListener onPostChangedListener) {
-        ValueEventListener valueEventListener = postInteractor.getPost(postId, onPostChangedListener);
+    public void getPostsListByEmotion(OnDataChangedListener<Post> onDataChangedListener, int emotion) {
+        postInteractor.getPostListByEmotion(onDataChangedListener, emotion);
+    }
+
+    public void getPost(Context context, String postId, int emotionType, OnPostChangedListener onPostChangedListener) {
+        ValueEventListener valueEventListener = postInteractor.getPost(postId, onPostChangedListener, emotionType);
         addListenerToMap(context, valueEventListener);
     }
 
-    public void getSinglePostValue(String postId, OnPostChangedListener onPostChangedListener) {
-        postInteractor.getSinglePost(postId, onPostChangedListener);
+    public void getSinglePostValue(String postId, int emotionType, OnPostChangedListener onPostChangedListener) {
+        postInteractor.getSinglePost(postId, emotionType, onPostChangedListener);
     }
 
     public void createOrUpdatePostWithImage(Uri imageUri, final OnPostCreatedListener onPostCreatedListener, final Post post) {

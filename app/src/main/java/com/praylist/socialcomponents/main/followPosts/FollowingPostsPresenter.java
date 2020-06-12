@@ -72,17 +72,17 @@ class FollowingPostsPresenter extends BasePresenter<FollowPostsView> {
         loadFollowingPosts();
     }
 
-    public void onAuthorClick(String postId, View authorView) {
-        postManager.getSinglePostValue(postId, new OnPostChangedListener() {
-            @Override
-            public void onObjectChanged(Post obj) {
-                ifViewAttached(view -> view.openProfileActivity(obj.getAuthorId(), authorView));
-            }
-
-            @Override
-            public void onError(String errorText) {
-                ifViewAttached(view -> view.showSnackBar(errorText));
-            }
-        });
+    public void onAuthorClick(String postId, View authorView) { // 작가 TODO 작가 누르면 이동하기
+//        postManager.getSinglePostValue(postId, new OnPostChangedListener() {
+//            @Override
+//            public void onObjectChanged(Post obj) {
+//                ifViewAttached(view -> view.openProfileActivity(obj.getAuthorId(), authorView));
+//            }
+//
+//            @Override
+//            public void onError(String errorText) {
+//                ifViewAttached(view -> view.showSnackBar(errorText));
+//            }
+//        });
     }
 }

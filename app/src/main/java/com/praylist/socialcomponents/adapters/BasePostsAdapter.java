@@ -73,7 +73,7 @@ public abstract class BasePostsAdapter extends RecyclerView.Adapter<RecyclerView
     public void updateSelectedPost() {
         if (selectedPostPosition != RecyclerView.NO_POSITION) {
             Post selectedPost = getItemByPosition(selectedPostPosition);
-            PostManager.getInstance(activity).getSinglePostValue(selectedPost.getId(), createOnPostChangeListener(selectedPostPosition));
+            PostManager.getInstance(activity).getSinglePostValue(selectedPost.getId(), selectedPost.getEmotionType(), createOnPostChangeListener(selectedPostPosition));
         }
     }
 }

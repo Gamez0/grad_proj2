@@ -29,6 +29,10 @@
         <activity
             android:name="com.praylist.socialcomponents.main.post.WhoCanReadActivity"
             android:label="@string/title_activity_who_can_read" />
+        <activity android:name=".main.todayViewPager.viewPagerActivity"
+            />
+        <activity android:name=".main.grid.GridActivity"/>
+
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
