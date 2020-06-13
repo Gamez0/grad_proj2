@@ -77,7 +77,7 @@ public class PostInteractor {
         try {
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + DatabaseHelper.POSTS_DB_KEY+ "/"+ DatabaseHelper.EMOTION.get(post.getEmotionType()) +"/"+ post.getId(), postValues);
+            childUpdates.put("/" + DatabaseHelper.POSTS_DB_KEY+ "/"+ DatabaseHelper.EMOTION.get((int)post.getEmotionType()) +"/"+ post.getId(), postValues);
 
 //            childUpdates.put("/" + DatabaseHelper.EMOTION_4+ "/" + post.getId(), postValues);
             databaseHelper.getDatabaseReference().updateChildren(childUpdates);
@@ -115,13 +115,14 @@ public class PostInteractor {
 
     public void getPostList(final OnPostListChangedListener<Post> onDataChangedListener, long date, int emotionType) {//
         DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY+"/"+DatabaseHelper.EMOTION.get(emotionType));//감정
+        DatabaseReference databaseReference1 = databaseHelper.getDatabaseReference().child(DatabaseHelper.EMOTION.get(emotionType));//감정
         Query postsQuery1, postsQuery2;
         postsQuery1 = databaseReference.orderByChild("isGlobal").equalTo(true);
 
         if (date == 0) {
-            postsQuery2 = databaseReference.limitToLast(Constants.Post.POST_AMOUNT_ON_PAGE).orderByChild("createdDate");
+            postsQuery2 = databaseReference1.limitToLast(Constants.Post.POST_AMOUNT_ON_PAGE).orderByChild("createdDate");
         } else {
-            postsQuery2 = databaseReference.limitToLast(Constants.Post.POST_AMOUNT_ON_PAGE).endAt(date).orderByChild("createdDate");
+            postsQuery2 = databaseReference1.limitToLast(Constants.Post.POST_AMOUNT_ON_PAGE).endAt(date).orderByChild("createdDate");
         }
 
         postsQuery2.keepSynced(true);
@@ -204,7 +205,8 @@ public class PostInteractor {
 
     public ValueEventListener getPost(final String id, final OnPostChangedListener listener, int emotionType) {
         DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
-        ValueEventListener valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference databaseReference1 = databaseHelper.getDatabaseReference().child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
+        ValueEventListener valueEventListener = databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
@@ -234,6 +236,7 @@ public class PostInteractor {
 
     public void getSinglePost(final String id, final int emotionType, final OnPostChangedListener listener) {
         DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
+        DatabaseReference databaseReference1 = databaseHelper.getDatabaseReference().child(DatabaseHelper.EMOTION.get(emotionType)).child(id);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -311,7 +314,7 @@ public class PostInteractor {
                         post.setImageTitle((String) mapObj.get("imageTitle"));
                         post.setAuthorId((String) mapObj.get("authorId"));
                         post.setPrayerFor((String)mapObj.get("prayerFor")); // 여기서도 바꿔줘야 적용이되네.
-
+//                        post.setEmotionType((int) mapObj.get("emotionType"));
                         post.setCreatedDate(createdDate);
                         if(mapObj.containsKey("prayerForId")){
                             post.setPrayerForId((String)mapObj.get("prayerForId"));
@@ -324,6 +327,9 @@ public class PostInteractor {
                         }
                         if (mapObj.containsKey("watchersCount")) { // 처음 볼 때만 올라가게 고쳐야됨.
                             post.setWatchersCount((long) mapObj.get("watchersCount"));
+                        }
+                        if (mapObj.containsKey("emotionType")){
+                            post.setEmotionType((long) mapObj.get("emotionType"));
                         }
                         if(isMyList || isGlobal || prayerForMe){
                             list.add(post);
@@ -354,16 +360,19 @@ public class PostInteractor {
         databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(post.getId()).child("hasComplain").setValue(true);
     }
 
-    public void isPostExistSingleValue(String postId, int emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
-        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(postId);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void isPostExistSingleValue(String postId, long emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get((int)emotionType)).child(postId);
+        DatabaseReference databaseReference1 = databaseHelper.getDatabaseReference().child(DatabaseHelper.EMOTION.get((int)emotionType)).child(postId);
+        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 onObjectExistListener.onDataChanged(dataSnapshot.exists());
+                Log.d(TAG, "onDataChange() 호출됨. 여기가 문제야? 2-1"+emotionType);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled() 호출됨. 여기가 문제야? 2-2");
                 LogUtil.logError(TAG, "isPostExistSingleValue(), onCancelled", new Exception(databaseError.getMessage()));
             }
         });

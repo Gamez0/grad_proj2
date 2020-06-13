@@ -106,7 +106,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private MenuItem deleteActionMenuItem;
 
     private String postId;
-    private int emotionType;
+    private long emotionType;
 
     private PostManager postManager;
     private LikeController likeController;
@@ -131,7 +131,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
         isAuthorAnimationRequired = getIntent().getBooleanExtra(AUTHOR_ANIMATION_NEEDED_EXTRA_KEY, false);
         postId = getIntent().getStringExtra(POST_ID_EXTRA_KEY);
-        emotionType = getIntent().getExtras().getInt("emotion");
+        emotionType = getIntent().getExtras().getLong("emotion");
 
         incrementWatchersCount();
 

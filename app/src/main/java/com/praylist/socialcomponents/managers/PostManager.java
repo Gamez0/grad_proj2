@@ -50,6 +50,7 @@ public class PostManager extends FirebaseListenersManager {
     private int newPostsCounter = 0;
     private PostCounterWatcher postCounterWatcher;
     private PostInteractor postInteractor;
+    private int emotionType;
 
     private Context context;
 
@@ -74,7 +75,17 @@ public class PostManager extends FirebaseListenersManager {
         }
     }
 
+    public void setEmotionType(int emotionType){
+        this.emotionType = emotionType;
+    }
+
+
+    public int getEmotionType(){
+        return emotionType;
+    }
+
     public void getPostsList(OnPostListChangedListener<Post> onDataChangedListener, long date, int emotionType) {
+        setEmotionType(emotionType);
         postInteractor.getPostList(onDataChangedListener, date, emotionType);
     }
 
@@ -87,11 +98,13 @@ public class PostManager extends FirebaseListenersManager {
     }
 
     public void getPost(Context context, String postId, int emotionType, OnPostChangedListener onPostChangedListener) {
+        setEmotionType(emotionType);
         ValueEventListener valueEventListener = postInteractor.getPost(postId, onPostChangedListener, emotionType);
         addListenerToMap(context, valueEventListener);
     }
 
     public void getSinglePostValue(String postId, int emotionType, OnPostChangedListener onPostChangedListener) {
+        setEmotionType(emotionType);
         postInteractor.getSinglePost(postId, emotionType, onPostChangedListener);
     }
 
@@ -116,7 +129,7 @@ public class PostManager extends FirebaseListenersManager {
         postInteractor.hasCurrentUserLikeSingleValue(postId, userId, onObjectExistListener);
     }
 
-    public void isPostExistSingleValue(String postId, int emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
+    public void isPostExistSingleValue(String postId, long emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
         postInteractor.isPostExistSingleValue(postId, emotionType, onObjectExistListener);
     }
 

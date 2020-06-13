@@ -194,6 +194,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
             @Override
             public void onItemClick(final Post post, final View view) {
                 presenter.onPostClicked(post, view);
+                Log.d(TAG,"emotion 뭐로 찍혀? : "+post.getEmotionType());
+                Log.d(TAG,"description 뭐로 찍혀? : "+post.getDescription());
             }
 
             @Override

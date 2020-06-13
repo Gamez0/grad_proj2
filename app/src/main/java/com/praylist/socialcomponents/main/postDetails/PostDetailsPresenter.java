@@ -63,8 +63,8 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
         commentManager = CommentManager.getInstance(context.getApplicationContext());
     }
 
-    public void loadPost(String postId, int emotionType) {
-        postManager.getPost(context, postId, emotionType, new OnPostChangedListener() {
+    public void loadPost(String postId, long emotionType) {
+        postManager.getPost(context, postId, (int)emotionType, new OnPostChangedListener() {
             @Override
             public void onObjectChanged(Post obj) {
                 ifViewAttached(view -> {

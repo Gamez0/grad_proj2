@@ -44,7 +44,7 @@ public class Post implements Serializable, LazyLoading {
     private String prayerForId;
     private ArrayList<String> coPrayer;
     private boolean isGlobal;   // 전체공개인가? default는 전체공개로!
-    private int emotionType;    // 0Joy 1Sadness 2Fear 3Anger 4Admiration
+    private long emotionType;    // 0Joy 1Sadness 2Fear 3Anger 4Admiration
     private ItemType itemType;
 
 
@@ -178,11 +178,11 @@ public class Post implements Serializable, LazyLoading {
         this.prayerForId = prayerForId;
     }
 
-    public int getEmotionType() {
+    public long getEmotionType() {
         return emotionType;
     }
 
-    public void setEmotionType(int emotionType) {
+    public void setEmotionType(long emotionType) {
         this.emotionType = emotionType;
     }
 
