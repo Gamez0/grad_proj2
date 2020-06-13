@@ -35,20 +35,20 @@
     <string name="button_ok">확인</string>
 
     <string name="hint_title">기도 제목</string>
-    <string name="hint_description2">무엇을 기도하시나요?</string>
-    <string name="hint_description">내가 기도하노라 너희 사랑을 지식과 모든 총명으로 점점 더 풍성하게 하사 너희로 지극히 선한 것을 분별하며 또 진실하여 허물없이 그리스도의 날까지 이르고 예수 그리스도로 말미암아 의의 열매가 가득하여 하나님의 영광과 찬송이 되기를 원하노라</string>
-    <string name="message_post_was_created">프레이리스트에 추가됨</string>
-    <string name="error_fail_create_post">프레이리스트 작성 실패</string>
+    <string name="hint_description2">...</string>
+    <string name="hint_description">...</string>
+    <string name="message_post_was_created">게시글 추가됨</string>
+    <string name="error_fail_create_post">게시글 작성 실패</string>
     <string name="error_fail_load_image">이미지 로드 실패</string>
     <string name="error_fail_crop_image">Fail to crop image</string>
     <string name="error_smaller_image">Image is too small. Required image size 100x100 px</string>
     <string name="error_incorrect_file_type">Incorrect file type</string>
     <string name="error_bigger_file">File size is bigger than 10Mb</string>
-    <string name="message_creating_post">프레이리스트 추가 중 …</string>
+    <string name="message_creating_post">게시글 추가 중 …</string>
     <string name="message_saving">저장 중 …</string>
     <string name="warning_empty_image">Image is required</string>
     <string name="warning_empty_title">Title is required</string>
-    <string name="warning_empty_description">기도를 써주세요</string>
+    <string name="warning_empty_description">글을 써주세요</string>
     <string name="error_post_title_length">Max length of the title should be less than 255 symbols</string>
     <string name="error_fail_remove_post">리스트 삭제 실패</string>
     <string name="message_post_was_removed">리스트가 삭제 되었습니다</string>
@@ -57,12 +57,12 @@
     <string name="confirm_deletion_post">리스트를 제거하시겠습니까?</string>
 
     <string name="comment_text_hint">댓글을 입력하세요…</string>
-    <string name="button_post_comment">함께 기도하기</string>
+    <string name="button_post_comment">함께...</string>
 
-    <string name="label_comments">함께하는 기도들 (%1$d):</string>
+    <string name="label_comments">댓글 (%1$d):</string>
 
     <string name="create_post_menu_label">작성하기</string>
-    <string name="create_post_full_menu_label">프레이리스트 작성</string>
+    <string name="create_post_full_menu_label">게시글 작성</string>
     <string name="sign_out_menu_label">로그아웃</string>
     <string name="edit_profile_menu_label">프로필 수정</string>
     <string name="button_title_save">완료</string>
@@ -71,8 +71,8 @@
     <!-- Strings related to registration and login -->
     <string name="prompt_email">이메일</string>
     <string name="prompt_name">이름</string>
-    <string name="prompt_church">교회</string>
-    <string name="prompt_missionary">선교단체</string>
+    <string name="prompt_church">...</string>
+    <string name="prompt_missionary">...</string>
     <string name="prompt_password">비밀번호</string>
     <string name="prompt_conf_password">비밀번호 확인</string>
     <string name="action_create_profile">Continue</string> <!-- 이건 뭐지? -->
@@ -166,13 +166,13 @@
     <string name="title_edit_comment">Edit comment</string>
 
     <!--Follow-->
-    <string name="button_follow_title">동역하기</string>
-    <string name="button_follow_back_title">나도 동역하기</string>
-    <string name="button_following">동역중</string>
+    <string name="button_follow_title">팔로우</string>
+    <string name="button_follow_back_title">맞팔로우</string>
+    <string name="button_following">팔로잉</string>
     <string name="unfollow_user_message">%1$s 해제?</string>
     <string name="button_title_unfollow">해제</string>
-    <string name="message_following_posts_empty">누군가와 동역해서 새로운 기도문을 받아보세요</string>
-    <string name="following_post_menu_item">동역자들 Prayers</string>
+    <string name="message_following_posts_empty">누군가를 팔로우</string>
+    <string name="following_post_menu_item">팔로워 글</string>
 
     <!--Users list-->
     <string name="title_followers">Followers</string>
@@ -184,7 +184,7 @@
     <string name="search_hint">Search …</string>
     <string name="posts_tab_title">Prayers</string>
     <string name="users_tab_title">Users</string>
-    <string name="empty_posts_search_message">No prayers found</string>
+    <string name="empty_posts_search_message">No post found</string>
     <string name="empty_user_search_message">No users found</string>
 
 

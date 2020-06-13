@@ -38,8 +38,8 @@ class FollowingPostsPresenter extends BasePresenter<FollowPostsView> {
         postManager = PostManager.getInstance(context);
     }
 
-    void onPostClicked(final String postId, final View postView) {
-        postManager.isPostExistSingleValue(postId, exist -> ifViewAttached(view -> {
+    void onPostClicked(final String postId, final int emotionType, final View postView) {
+        postManager.isPostExistSingleValue(postId, emotionType, exist -> ifViewAttached(view -> {
             if (exist) {
                 view.openPostDetailsActivity(postId, postView);
             } else {

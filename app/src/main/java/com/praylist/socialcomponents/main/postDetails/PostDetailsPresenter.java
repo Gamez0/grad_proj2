@@ -19,7 +19,9 @@ package com.praylist.socialcomponents.main.postDetails;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -78,6 +80,7 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
                         isPostExist = false;
                         view.onPostRemoved();
                         view.showNotCancelableWarningDialog(context.getString(R.string.error_post_was_removed));
+                        Log.d(TAG, "어디가 문제야? 5");
                     }
                 });
             }

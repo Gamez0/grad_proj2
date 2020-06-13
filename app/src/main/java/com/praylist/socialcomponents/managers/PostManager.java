@@ -116,8 +116,8 @@ public class PostManager extends FirebaseListenersManager {
         postInteractor.hasCurrentUserLikeSingleValue(postId, userId, onObjectExistListener);
     }
 
-    public void isPostExistSingleValue(String postId, final OnObjectExistListener<Post> onObjectExistListener) {
-        postInteractor.isPostExistSingleValue(postId, onObjectExistListener);
+    public void isPostExistSingleValue(String postId, int emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
+        postInteractor.isPostExistSingleValue(postId, emotionType, onObjectExistListener);
     }
 
     public void incrementWatchersCount(String postId) {

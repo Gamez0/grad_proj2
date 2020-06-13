@@ -23,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,11 +57,12 @@ class MainPresenter extends BasePresenter<MainView> {
     }
 
     void onPostClicked(final Post post, final View postView) {
-        postManager.isPostExistSingleValue(post.getId(), exist -> ifViewAttached(view -> {
+        postManager.isPostExistSingleValue(post.getId(), post.getEmotionType(), exist -> ifViewAttached(view -> {
             if (exist) {
                 view.openPostDetailsActivity(post, postView);
             } else {
                 view.showFloatButtonRelatedSnackBar(R.string.error_post_was_removed);
+                Log.d(TAG, "어디가 문제야? 2");
             }
         }));
     }
@@ -111,12 +113,13 @@ class MainPresenter extends BasePresenter<MainView> {
 
     // from ProfilePresenter.java
     void onPostClick(Post post, View postItemView) {
-        PostManager.getInstance(context).isPostExistSingleValue(post.getId(), exist -> {
+        PostManager.getInstance(context).isPostExistSingleValue(post.getId(), post.getEmotionType(), exist -> {
             ifViewAttached(view -> {
                 if (exist) {
                     view.openPostDetailsActivity(post, postItemView);
                 } else {
                     view.showSnackBar(R.string.error_post_was_removed);
+                    Log.d(TAG, "어디가 문제야? 3");
                 }
             });
         });

@@ -354,8 +354,8 @@ public class PostInteractor {
         databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(post.getId()).child("hasComplain").setValue(true);
     }
 
-    public void isPostExistSingleValue(String postId, final OnObjectExistListener<Post> onObjectExistListener) {
-        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(postId);
+    public void isPostExistSingleValue(String postId, int emotionType, final OnObjectExistListener<Post> onObjectExistListener) {
+        DatabaseReference databaseReference = databaseHelper.getDatabaseReference().child(DatabaseHelper.POSTS_DB_KEY).child(DatabaseHelper.EMOTION.get(emotionType)).child(postId);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

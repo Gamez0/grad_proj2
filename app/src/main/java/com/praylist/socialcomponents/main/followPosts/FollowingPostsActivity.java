@@ -124,7 +124,7 @@ public class FollowingPostsActivity extends BaseActivity<FollowPostsView, Follow
         postsAdapter.setCallBack(new FollowPostsAdapter.CallBack() {
             @Override
             public void onItemClick(FollowingPost followingPost, View view) {
-                presenter.onPostClicked(followingPost.getPostId(), view);
+//                presenter.onPostClicked(followingPost.getPostId(), view);
             }
 
             @Override

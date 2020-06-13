@@ -17,6 +17,7 @@
 package com.praylist.socialcomponents.main.post.editPost;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.main.post.BaseCreatePostPresenter;
@@ -93,6 +94,7 @@ class EditPostPresenter extends BaseCreatePostPresenter<EditPostView> {
             public void onObjectChanged(Post obj) {
                 if (obj == null) {
                     ifViewAttached(view -> view.showWarningDialog(R.string.error_post_was_removed, (dialog, which) -> {
+                        Log.d(TAG, "어디가 문제야? 4");
                         view.openMainActivity();
                         view.finish();
                     }));

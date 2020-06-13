@@ -21,6 +21,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ import com.praylist.socialcomponents.utils.AnimationUtils;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class SearchPostsFragment extends BaseFragment<SearchPostsView, SearchPostsPresenter>
         implements SearchPostsView, Searchable {
@@ -118,13 +120,14 @@ public class SearchPostsFragment extends BaseFragment<SearchPostsView, SearchPos
         postsAdapter.setCallBack(new SearchPostsAdapter.CallBack() {
             @Override
             public void onItemClick(Post post, View view) {
-                PostManager.getInstance(getActivity().getApplicationContext()).isPostExistSingleValue(post.getId(), new OnObjectExistListener<Post>() {
+                PostManager.getInstance(getActivity().getApplicationContext()).isPostExistSingleValue(post.getId(), post.getEmotionType(), new OnObjectExistListener<Post>() {
                     @Override
                     public void onDataChanged(boolean exist) {
                         if (exist) {
                             openPostDetailsActivity(post, view);
                         } else {
                             showSnackBar(R.string.error_post_was_removed);
+                            Log.d(TAG, "어디가 문제야? 7");
                         }
                     }
                 });
