@@ -306,7 +306,8 @@
             android:inputType="textMultiLine"
             android:maxHeight="@dimen/new_comment_max_height"
             android:minHeight="@dimen/new_comment_min_height"
-            android:padding="@dimen/intrinsic_padding" />
+            android:padding="@dimen/intrinsic_padding"
+            android:visibility="invisible"/>
 
         <Button
             android:id="@+id/sendButton"
@@ -320,7 +321,8 @@
             android:paddingLeft="@dimen/large_intrinsic_padding"
             android:paddingRight="@dimen/large_intrinsic_padding"
             android:text="@string/send_comment_button_label"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </RelativeLayout>
