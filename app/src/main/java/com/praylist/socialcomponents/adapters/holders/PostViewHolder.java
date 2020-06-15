@@ -85,7 +85,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         commentsCountTextView = view.findViewById(R.id.commentsCountTextView);
         watcherCounterTextView = view.findViewById(R.id.watcherCounterTextView);
         dateTextView = view.findViewById(R.id.dateTextView);
-        titleTextView = view.findViewById(R.id.titleTextView);
+        titleTextView = view.findViewById(R.id.titleTextView);  //
         likeViewGroup = view.findViewById(R.id.likesContainer);
         detailsTextView = view.findViewById(R.id.detailsTextView);
         authorImageView = view.findViewById(R.id.authorImageView);
@@ -133,13 +133,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         String title = removeNewLinesDividers(post.getTitle());
 
 
-        try{
-            String username = removeNewLinesDividers(post.getUsername());
-            titleTextView.setText(username);
-        } catch (Exception e){
-            titleTextView.setText("이름 불러오기 실패");
-        }
-
+//        try{
+//            String username = removeNewLinesDividers(post.getUsername());
+//            titleTextView.setText(username);    // 여기서 user이름을 넣고 있다.
+//        } catch (Exception e){
+//            titleTextView.setText("이름 불러오기 실패");
+//        }
+        titleTextView.setText(title);   // 시 제목 출력
         //setPrayerForTextView(post.getPrayerFor());
 
 
@@ -148,7 +148,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
         prayerForTextView.setText(post.getPrayerFor());
         String description = removeNewLinesDividers(post.getDescription());
-        detailsTextView.setText(description);
+        detailsTextView.setText(description);   // 시 내용...
         likeCounterTextView.setText(String.valueOf(post.getLikesCount()));
         commentsCountTextView.setText(String.valueOf(post.getCommentsCount()));
         watcherCounterTextView.setText(String.valueOf(post.getWatchersCount()));

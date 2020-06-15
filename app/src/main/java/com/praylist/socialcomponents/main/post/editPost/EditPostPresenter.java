@@ -80,9 +80,9 @@ class EditPostPresenter extends BaseCreatePostPresenter<EditPostView> {
             post.setPrayerFor(prayerFor);
 
             if (view.getImageUri() != null) {
-                postManager.createOrUpdatePostWithImage(view.getImageUri(), this, post);
+                postManager.createOrUpdatePostWithImage(view.getImageUri(), this, post, (int)post.getEmotionType());
             } else {
-                postManager.createOrUpdatePost(post);
+                postManager.createOrUpdatePost(post, (int)post.getEmotionType());
                 onPostSaved(true);
             }
         });

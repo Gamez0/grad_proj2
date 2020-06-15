@@ -67,9 +67,9 @@ public class PostManager extends FirebaseListenersManager {
         postInteractor = PostInteractor.getInstance(context);
     }
 
-    public void createOrUpdatePost(Post post) {
+    public void createOrUpdatePost(Post post, int emotionType) {
         try {
-            postInteractor.createOrUpdatePost(post);
+            postInteractor.createOrUpdatePost(post, emotionType);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -108,8 +108,8 @@ public class PostManager extends FirebaseListenersManager {
         postInteractor.getSinglePost(postId, emotionType, onPostChangedListener);
     }
 
-    public void createOrUpdatePostWithImage(Uri imageUri, final OnPostCreatedListener onPostCreatedListener, final Post post) {
-        postInteractor.createOrUpdatePostWithImage(imageUri, onPostCreatedListener, post);
+    public void createOrUpdatePostWithImage(Uri imageUri, final OnPostCreatedListener onPostCreatedListener, final Post post, int emotionType) {
+        postInteractor.createOrUpdatePostWithImage(imageUri, onPostCreatedListener, post, emotionType);
     }
 
     public void removePost(final Post post, final OnTaskCompleteListener onTaskCompleteListener) {

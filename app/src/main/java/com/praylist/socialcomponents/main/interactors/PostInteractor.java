@@ -73,11 +73,11 @@ public class PostInteractor {
                 .getKey();
     }
 
-    public void createOrUpdatePost(Post post) { // 포스트 생성하는 곳
+    public void createOrUpdatePost(Post post, int emotionType) { // 포스트 생성하는 곳
         try {
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + DatabaseHelper.POSTS_DB_KEY+ "/"+ DatabaseHelper.EMOTION.get((int)post.getEmotionType()) +"/"+ post.getId(), postValues);
+            childUpdates.put("/" + DatabaseHelper.EMOTION.get(3) +"/"+ post.getId(), postValues);
 
 //            childUpdates.put("/" + DatabaseHelper.EMOTION_4+ "/" + post.getId(), postValues);
             databaseHelper.getDatabaseReference().updateChildren(childUpdates);
@@ -416,7 +416,7 @@ public class PostInteractor {
         });
     }
 
-    public void createOrUpdatePostWithImage(Uri imageUri, final OnPostCreatedListener onPostCreatedListener, final Post post) {
+    public void createOrUpdatePostWithImage(Uri imageUri, final OnPostCreatedListener onPostCreatedListener, final Post post, int emotionType) {
         // Register observers to listen for when the download is done or if it fails
         DatabaseHelper databaseHelper = ApplicationHelper.getDatabaseHelper();
         if (post.getId() == null) {
@@ -438,7 +438,7 @@ public class PostInteractor {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
                 post.setImageTitle(imageTitle);
-                createOrUpdatePost(post);
+                createOrUpdatePost(post, emotionType);
 
                 onPostCreatedListener.onPostSaved(true);
             });

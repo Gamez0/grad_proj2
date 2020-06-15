@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         postsAdapter.setCallback(new PostsAdapter.Callback() {
             @Override
             public void onItemClick(final Post post, final View view) {
-                presenter.onPostClicked(post, view);
+                presenter.onPostClicked(post, view, emotionType);
                 Log.d(TAG,"emotion 뭐로 찍혀? : "+post.getEmotionType());
                 Log.d(TAG,"description 뭐로 찍혀? : "+post.getDescription());
             }
@@ -299,7 +299,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     public void openPostDetailsActivity(Post post, View v) {
         Intent intent = new Intent(MainActivity.this, PostDetailsActivity.class);
         intent.putExtra(PostDetailsActivity.POST_ID_EXTRA_KEY, post.getId());
-        intent.putExtra("emotion",post.getEmotionType());
+        intent.putExtra("emotion",(long)emotionType);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 

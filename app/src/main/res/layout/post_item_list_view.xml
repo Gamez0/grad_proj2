@@ -37,7 +37,6 @@
                 android:layout_width="0.1dp"
                 android:layout_height="0.1dp"
                 android:visibility="invisible"
-
                 />
 
 <!--            <Button-->
@@ -86,7 +85,6 @@
                     android:ellipsize="end"
                     android:fontFamily="@string/font_primary"
                     android:textStyle="bold|italic"
-
                     android:maxLines="1"
                     android:paddingLeft="@dimen/intrinsic_padding"
                     android:paddingRight="@dimen/intrinsic_padding"
@@ -143,7 +141,7 @@
                 android:layout_toStartOf="@+id/addToMyPrayList"
                 android:ellipsize="end"
                 android:fontFamily="@string/font_primary"
-                android:maxLines="3"
+                android:maxLines="1"
                 android:paddingLeft="@dimen/intrinsic_padding"
                 android:paddingRight="@dimen/intrinsic_padding"
                 android:textAppearance="@style/TextAppearance.Second" />

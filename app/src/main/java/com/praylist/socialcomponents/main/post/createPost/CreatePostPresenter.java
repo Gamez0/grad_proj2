@@ -52,7 +52,7 @@ public class CreatePostPresenter extends BaseCreatePostPresenter<CreatePostView>
             /* 찌르기에 답장이면
             post.setSecondAuthorId(FirebaseAuth.getInstance().getCurrentUser().getSecondUid());
              */
-            postManager.createOrUpdatePostWithImage(view.getImageUri(), this, post);
+            postManager.createOrUpdatePostWithImage(view.getImageUri(), this, post, (int)post.getEmotionType());
         });
     }
 

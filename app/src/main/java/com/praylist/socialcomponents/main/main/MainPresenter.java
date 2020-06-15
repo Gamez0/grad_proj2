@@ -56,13 +56,15 @@ class MainPresenter extends BasePresenter<MainView> {
         }
     }
 
-    void onPostClicked(final Post post, final View postView) {
-        postManager.isPostExistSingleValue(post.getId(), post.getEmotionType(), exist -> ifViewAttached(view -> {
+    void onPostClicked(final Post post, final View postView, int emotionType) {
+        postManager.isPostExistSingleValue(post.getId(), emotionType, exist -> ifViewAttached(view -> {
             if (exist) {
                 view.openPostDetailsActivity(post, postView);
+                Log.d(TAG, "if emotion 뭐야 "+post.getEmotionType());
             } else {
                 view.showFloatButtonRelatedSnackBar(R.string.error_post_was_removed);
                 Log.d(TAG, "어디가 문제야? 2");
+                Log.d(TAG, "else emotion 뭐야 "+post.getEmotionType());
             }
         }));
     }
