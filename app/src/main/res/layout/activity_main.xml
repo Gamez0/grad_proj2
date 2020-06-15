@@ -22,7 +22,8 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextAppearance="@style/nanumTitle"/>
+            app:titleTextAppearance="@style/nanumTitle"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.main.main.MainActivity;
 import com.praylist.socialcomponents.main.onBoarding.onBoardingActivity;
 import com.praylist.socialcomponents.main.todayViewPager.viewPagerActivity;
@@ -19,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_splash);
         try{
             myid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         } catch (Exception e){
