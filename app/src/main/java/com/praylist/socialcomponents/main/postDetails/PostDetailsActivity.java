@@ -307,7 +307,10 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         });
     }
     private void initMidi(){
-        int num = rand.nextInt(10); // 0부터 9까지 난수 생성
+        int num = rand.nextInt(30); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개
+        if(emotionType==1){
+            num = rand.nextInt(10);
+        }
         postManager.getMidiStorageRef("output"+num+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
