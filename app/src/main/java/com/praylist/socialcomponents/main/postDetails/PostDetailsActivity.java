@@ -135,7 +135,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
         incrementWatchersCount();
 
-        titleTextView = findViewById(R.id.titleTextView);
+        titleTextView = findViewById(R.id.authorTextView);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         postImageView = findViewById(R.id.postImageView);
         progressBar = findViewById(R.id.progressBar);
@@ -367,16 +367,17 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     }
 
     @Override
-    public void setPrayerFor(String prayerFor) {
-        if(prayerFor.equals("J")){
-            prayerForTextView.setText("Jesus");
-        }else if(prayerFor.equals("O")){
-            prayerForTextView.setText("Others");
-        }else if(prayerFor.equals("Y")){
-            prayerForTextView.setText("You");
-        }else{
-            prayerForTextView.setText(prayerFor);
-        }
+    public void setPrayerFor(String prayerFor, String username) {
+        prayerForTextView.setText(username);
+//        if(prayerFor.equals("J")){
+//            prayerForTextView.setText("Jesus");
+//        }else if(prayerFor.equals("O")){
+//            prayerForTextView.setText("Others");
+//        }else if(prayerFor.equals("Y")){
+//            prayerForTextView.setText("You");
+//        }else{
+//            prayerForTextView.setText(prayerFor);
+//        }
     }
 
     @Override

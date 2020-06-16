@@ -66,7 +66,8 @@
                 android:id="@+id/authorContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:gravity="center"
+
                 android:layout_marginTop="@dimen/large_intrinsic_padding"
                 android:layout_marginBottom="@dimen/intrinsic_padding"
                 android:orientation="horizontal"
@@ -80,10 +81,12 @@
                     android:layout_marginRight="@dimen/intrinsic_padding"
 
                     android:text="@string/posted_by_label"
-                    android:textAppearance="@style/TextAppearance.Second.Light" />
+                    android:textAppearance="@style/TextAppearance.Second.Light"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/authorTextView"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -104,11 +107,12 @@
 
             <TextView
                 android:id="@+id/descriptionEditText"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@string/font_primary"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_marginBottom="@dimen/large_intrinsic_padding"
                 android:layout_marginTop="@dimen/large_intrinsic_padding"
                 android:paddingLeft="@dimen/large_intrinsic_padding"
@@ -163,7 +167,8 @@
                 android:layout_gravity="center"
 
                 android:layout_marginLeft="@dimen/large_intrinsic_padding"
-                android:layout_marginRight="@dimen/large_intrinsic_padding" />
+                android:layout_marginRight="@dimen/large_intrinsic_padding"
+                android:visibility="invisible"/>
 
             </LinearLayout>
 

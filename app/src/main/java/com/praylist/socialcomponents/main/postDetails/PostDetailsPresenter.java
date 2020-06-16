@@ -110,7 +110,7 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
             view.setTitle(post.getTitle());
             view.setDescription(post.getDescription());
             view.loadPostDetailImage(post.getImageTitle());
-            view.setPrayerFor(post.getPrayerFor());
+            view.setPrayerFor(post.getPrayerFor(), post.getUsername());
 
             loadAuthorProfile();
         });
@@ -126,7 +126,8 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
                             view.loadAuthorPhoto(profile.getPhotoUrl());
                         }
 
-                        view.setAuthorName(profile.getUsername());
+//                        view.setAuthorName(profile.getUsername());
+                        view.setAuthorName(post.getTitle());
                     });
                 }
             });

@@ -39,7 +39,7 @@ public interface PostDetailsView extends BaseView {
 
     void setTitle(String title);
 
-    void setPrayerFor(String prayerFor);
+    void setPrayerFor(String prayerFor, String username);
 
     void setDescription(String description);
 
