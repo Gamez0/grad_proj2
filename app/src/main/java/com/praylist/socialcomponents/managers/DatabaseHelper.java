@@ -50,6 +50,7 @@ public class DatabaseHelper {
     private static DatabaseHelper instance;
 
     public static final List<String> EMOTION = Collections.unmodifiableList(Arrays.asList("joy", "sad", "fear","anger","admire"));
+    public static final List<String> MIDI_TYPE = Collections.unmodifiableList(Arrays.asList("funny","sad","scared","anger","nature"));
     public static final String EMOTION_0 = "joy";
     public static final String EMOTION_1 = "sad";
     public static final String EMOTION_2 = "fear";
@@ -66,6 +67,7 @@ public class DatabaseHelper {
     public static final String IMAGES_STORAGE_KEY = "images";
     public static final String IMAGES_MEDIUM_KEY = "medium";
     public static final String IMAGES_SMALL_KEY = "small";
+    public static final String MIDI_KEY = "midis";
 
     private Context context;
     private FirebaseDatabase database;
@@ -129,6 +131,11 @@ public class DatabaseHelper {
         StorageReference desertRef = getStorageReference().child(IMAGES_STORAGE_KEY + "/" + imageTitle);
         return desertRef.delete();
     }
+
+    public StorageReference getMidiStorageRef(String midiTitle, int emotionType){
+        return getStorageReference().child(MIDI_KEY).child(MIDI_TYPE.get(emotionType)).child(midiTitle);
+    }
+
 
     public StorageReference getOriginImageStorageRef(String imageTitle) {
         return getStorageReference().child(IMAGES_STORAGE_KEY).child(imageTitle);

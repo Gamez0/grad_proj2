@@ -655,6 +655,10 @@ public class PostInteractor {
                 .limitToLast(limit);
     }
 
+    public StorageReference getMidiStorageRef(String midiTitle, int emotionType){
+        return databaseHelper.getMidiStorageRef(midiTitle, emotionType);
+    }
+
     public StorageReference getMediumImageStorageRef(String imageTitle) {
         return databaseHelper.getMediumImageStorageRef(imageTitle);
     }

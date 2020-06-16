@@ -22,11 +22,15 @@ import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,6 +54,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.adapters.CommentsAdapter;
 import com.praylist.socialcomponents.controllers.LikeController;
@@ -70,6 +75,7 @@ import com.praylist.socialcomponents.utils.GlideApp;
 import com.praylist.socialcomponents.utils.ImageUtil;
 
 import java.util.List;
+import java.util.Random;
 
 public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetailsPresenter> implements PostDetailsView, EditCommentDialog.CommentDialogCallback {
 
@@ -100,6 +106,8 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private TextView prayerForTextView;
     private ImageView addToMyPrayListView;
 
+    private MediaPlayer player = new MediaPlayer();
+    Random rand = new Random();
 
     private MenuItem complainActionMenuItem;
     private MenuItem editActionMenuItem;
@@ -132,6 +140,8 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         isAuthorAnimationRequired = getIntent().getBooleanExtra(AUTHOR_ANIMATION_NEEDED_EXTRA_KEY, false);
         postId = getIntent().getStringExtra(POST_ID_EXTRA_KEY);
         emotionType = getIntent().getExtras().getLong("emotion");
+
+        initMidi(); // 미디 초기화
 
         incrementWatchersCount();
 
@@ -229,6 +239,10 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         } else {
             super.onBackPressed();
         }
+
+        // 뒤로가기 했을 때 음악이 꺼져야지지
+       player.seekTo(0);
+        player.pause();
     }
 
     private void initListeners() {
@@ -257,7 +271,24 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
         authorImageView.setOnClickListener(v -> presenter.onAuthorClick(v));
         authorTextView.setOnClickListener(v -> presenter.onAuthorClick(v));
-        addToMyPrayListView.setOnClickListener(v->presenter.onAddButtonClick(addToMyPrayListView));
+//        addToMyPrayListView.setOnClickListener(v->presenter.onAddButtonClick(addToMyPrayListView));
+        addToMyPrayListView.setOnClickListener(v-> {
+            try{
+                if(player.isPlaying()){
+                    player.seekTo(0);
+                    player.pause();
+                }else{
+                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//                    player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
+//                    player.prepare();
+                    player.start();
+                    Log.d(TAG,"playing from activity.");
+                }
+            } catch (Exception e){
+
+            }
+
+        });
 
         likesContainer.setOnClickListener(v -> {
             if (likeController != null && presenter.isPostExist()) {
@@ -275,7 +306,20 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             return false;
         });
     }
-
+    private void initMidi(){
+        int num = rand.nextInt(10); // 0부터 9까지 난수 생성
+        postManager.getMidiStorageRef("output"+num+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                try{
+                    player.setDataSource(uri.toString());
+                    player.prepare();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     private void initRecyclerView() {
         commentsAdapter = new CommentsAdapter();
         commentsAdapter.setCallback(new CommentsAdapter.Callback() {
@@ -382,15 +426,34 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
     @Override
     public void openAddPostActivity(String prayer, String username, String authorId) {
+        // 여기를 누르면 음악이 재생되게 하자
 
-        String prayerFor = username;
-        String prayerForId = authorId;
 
-        Intent intent = new Intent(this, AddPostActivity.class);
-        intent.putExtra(AddPostActivity.POST_EXTRA_KEY,prayer);
-        intent.putExtra(AddPostActivity.USERNAME_EXTRA_KEY,prayerFor);
-        intent.putExtra(AddPostActivity.AUTHOR_EXTRA_KEY,prayerForId);
-        startActivityForResult(intent, AddPostActivity.CREATE_NEW_POST_REQUEST);
+        try {
+//            MediaPlayer player = new MediaPlayer();
+//
+//            if(player.isPlaying()){
+//                player.stop();
+//            }else{
+//                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//                player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
+//                player.prepare();
+//                player.start();
+//                Log.d(TAG,"playing from activity.");
+//            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+//        String prayerFor = username;
+//        String prayerForId = authorId;
+//
+//        Intent intent = new Intent(this, AddPostActivity.class);
+//        intent.putExtra(AddPostActivity.POST_EXTRA_KEY,prayer);
+//        intent.putExtra(AddPostActivity.USERNAME_EXTRA_KEY,prayerFor);
+//        intent.putExtra(AddPostActivity.AUTHOR_EXTRA_KEY,prayerForId);
+//        startActivityForResult(intent, AddPostActivity.CREATE_NEW_POST_REQUEST);
 
 //        Intent intent = new Intent(PostDetailsActivity.this, EditPostActivity.class);
 //        intent.putExtra(EditPostActivity.POST_EXTRA_KEY, post);

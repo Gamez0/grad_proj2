@@ -47,6 +47,8 @@ public interface PostDetailsView extends BaseView {
 
     void loadAuthorPhoto(String photoUrl);
 
+//    void loadMidiFile(String midiUrl);
+
     void setAuthorName(String username);
 
     void initLikeController(Post post);

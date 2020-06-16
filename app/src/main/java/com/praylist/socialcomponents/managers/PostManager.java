@@ -208,6 +208,10 @@ public class PostManager extends FirebaseListenersManager {
         loadImageMediumSize(request, imageTitle, imageView, null);
     }
 
+    public StorageReference getMidiStorageRef(String midiTitle, int emotionType){
+        return postInteractor.getMidiStorageRef(midiTitle, emotionType);
+    }
+
     private StorageReference getMediumImageStorageRef(String imageTitle) {
         return postInteractor.getMediumImageStorageRef(imageTitle);
     }

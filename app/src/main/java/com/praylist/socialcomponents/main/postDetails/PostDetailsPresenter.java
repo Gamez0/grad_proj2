@@ -18,6 +18,8 @@ package com.praylist.socialcomponents.main.postDetails;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +54,8 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
     private Post post;
     private boolean isPostExist;
     private boolean postRemovingProcess = false;
+
+    private MediaPlayer player = new MediaPlayer();
 
     private boolean attemptToLoadComments = false;
 
@@ -148,13 +152,29 @@ class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
     }
 
     public void onAddButtonClick(View anchorView){
-        if (checkInternetConnection(anchorView)) {
-            if (checkAuthorization()) {
-                if(post!=null){
-                    ifViewAttached(view -> view.openAddPostActivity(post.getDescription(),post.getUsername(),post.getAuthorId()));
-                }
+        try {
+//            MediaPlayer player = new MediaPlayer();
+            if(player.isPlaying()){
+                player.stop();
+            }else{
+                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
+                player.prepare();
+                player.start();
+                Log.d(TAG,"playing from presenter.");
             }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
         }
+//        if (checkInternetConnection(anchorView)) {
+//            if (checkAuthorization()) {
+//                if(post!=null){
+//                    ifViewAttached(view -> view.openAddPostActivity(post.getDescription(),post.getUsername(),post.getAuthorId()));
+//                }
+//            }
+//        }
             //addpraylist_activity로 넘기면 된다! mainactivity에서 처럼
     }
 
