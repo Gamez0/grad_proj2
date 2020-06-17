@@ -25,11 +25,11 @@ public class GridActivity extends AppCompatActivity {
 
 
     ArrayList<EmoItem> datas = new ArrayList<EmoItem>(){
-        {add(new EmoItem("Joy","기쁨,즐거움"));
-            add(new EmoItem("Sadness","슬픔,그리움,걱정,사랑"));
-            add(new EmoItem("Fear","두려움,무기력함"));
-            add(new EmoItem("Anger","저항의지,충절,역겨움"));
-            add(new EmoItem("Admiration","자연,종교"));
+        {add(new EmoItem("매일 그대와","Joy"));
+            add(new EmoItem("울고 싶을 때","Sadness")); //슬픔,그리움,걱정,사랑
+            add(new EmoItem("걱정 근심","Fear"));
+            add(new EmoItem("해방, \n독립 운동의 꽃","Anger"));
+            add(new EmoItem("성찰과 시","Admiration"));
 
         }
     };

@@ -1,13 +1,19 @@
 
 <resources>
-    <string name="title_1">초혼</string>
-    <string name="title_2">새</string>
-    <string name="title_3">세번째 시</string>
-    <string name="title_4">네번째 시</string>
+    <string name="title_1">김소월 「초혼」</string>
+    <string name="title_2">박남수 「새」</string>
+    <string name="title_3">이육사 「광야」</string>
+    <string name="title_4">기형도 「엄마 걱정」</string>
 
-    <string name="text_1">산산이 부서진 이름이여!\n허공 중에 헤어진 이름이여!\n불러도 주인 없는 이름이여!\n부르다가 내가 죽을 이름이여!\n\n심중에 남아 있는 말 한 마디는\n끝긑내 마저 하지 못하였구나.\n사랑하던 그 사람이여!\n사랑하던 그 사람이여!
+    <string name="text_1">산산이 부서진 이름이여!\n허공 중에 헤어진 이름이여!\n불러도 주인 없는 이름이여!\n부르다가 내가 죽을 이름이여!\n\n심중에 남아 있는 말 한 마디는\n끝내 마저 하지 못하였구나.\n사랑하던 그 사람이여!\n사랑하던 그 사람이여!
     </string>
-    <string name="text_2">하늘에 깔아 논\n바람의 여울터에서나\n속삭이듯 서걱이는\n나무의 그늘에서나, 새는\n노래한다. 그것이 노래인 줄도 모르면서\n새는 그것이 사랑인 줄도 모르면서\n두 놈이 부리를\n서로의 죽지에 파묻고\n따스한 체온(體溫)을 나누어 가진다.\n2\n새는 울어\n뜻을 만들지 않고.\n지어서 교태(嬌態)로\n사랑을 가식(假飾)하지 않는다.\n...
+    <string name="text_2">하늘에 깔아 논\n바람의 여울터에서나\n속삭이듯 서걱이는\n나무의 그늘에서나, 새는 노래한다.\n\n그것이 노래인 줄도 모르면서\n새는 그것이 사랑인 줄도 모르면서\n\n두 놈이 부리를\n서로의 죽지에 파묻고\n따스한 체온을 나누어 가진다.\n\n2\n새는 울어\n뜻을 만들지 않고.\n지어서 교태로\n사랑을 가식하지 않는다.\n포수는 한 덩이 납으로\n그 순수를 겨냥하지만,\n\n매양 쏘는 것은\n피에 젖은 한 마리 상한 새에 지나지 않는다.
+    </string>
+    <string name="text_3">
+        까마득한 날에\n하늘이 처음 열리고\n어데 닭 우는 소리 들렸으랴.\n\n모든 산맥들이\n바다를 연모해 휘달릴 때도\n차마 이곳을 범하던 못 하였으리라.\n끊임없는 광음을\n부지런한 계절이 피어선 지고\n큰 강물이 비로서 길을 열었다.\n\n지금 눈 나리고\n매화향기 홀로 아득하니\n내 여기 가난한 노래의 씨를 뿌려라.\n\n다시 천고의 뒤에\n백마 타고 오는 초인이 있어\n이 광야에서 목놓아 부르게 하리라.
+    </string>
+    <string name="text_4">
+        열무 삼십 단을 이고\n시장에 간 우리 엄마\n안 오시네, 해는 시든 지 오래\n나는 찬밥처럼 방에 담겨\n아무리 천천히 숙제를 해도\n엄마 안 오시네, 배추잎 같은 발소리 타박타박\n안 들리네, 어둡고 무서워\n금 간 창 틈으로 고요히 빗소리\n빈 방에 혼자 엎드려 훌쩍거리던\n\n아주 먼 옛날\n지금도 내 눈시울을 뜨겁게 하는\n그 시절, 내 유년의 윗목
     </string>
 
 
@@ -15,7 +21,7 @@
     <string name="label_main_activity">모두의 프레이리스트</string>
     <string name="label_create_post_activity">작성중</string>
     <string name="label_add_post_activity">내 리스트에 쓰기</string>
-    <string name="label_post_detail_activity">상세보기</string>
+    <string name="label_post_detail_activity"></string>
     <string name="label_image_detail_activity">이미지</string>
     <string name="title_activity_login">회원가입</string>
     <string name="title_activity_create_profile">프로필 생성</string>

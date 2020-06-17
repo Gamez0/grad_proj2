@@ -25,11 +25,12 @@
         android:text="팔각정"
         android:fontFamily="@font/nanumbarunpenb"
         android:textColor="#000000"
-        android:textSize="20dp" />
+        android:textSize="24dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:text="시와 음악을 함께"
+        android:textStyle="italic"
         android:fontFamily="@font/nanumbarunpenb"
         android:textSize="16dp"
         android:textColor="#000000"

@@ -1,5 +1,7 @@
 package com.praylist.socialcomponents.main.todayViewPager;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.praylist.socialcomponents.adapters.CardAdapter;
 public class CardFragment extends Fragment {
 
     private CardView mCardView;
+    ValueAnimator mColorAnimation;
+    Integer color1, color2, color3, color4;
 
     @Nullable
     @Override
@@ -24,6 +28,21 @@ public class CardFragment extends Fragment {
         mCardView = (CardView) view.findViewById(R.id.cardView);
         mCardView.setMaxCardElevation(mCardView.getCardElevation()
                 * CardAdapter.MAX_ELEVATION_FACTOR);
+
+        color1 = getResources().getColor(R.color.page1);
+        color2 = getResources().getColor(R.color.page2);
+        color3 = getResources().getColor(R.color.page3);
+        color4 = getResources().getColor(R.color.page4);
+        mColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), color1, color2, color3,color4);
+        mColorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mCardView.setCardBackgroundColor((Integer)animation.getAnimatedValue());
+            }
+        });
+        mColorAnimation.setDuration((4 - 1) * 10000000000l);
+
+//        mCardView.setCardBackgroundColor();
         return view;
     }
 

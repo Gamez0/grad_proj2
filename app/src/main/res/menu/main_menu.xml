@@ -7,21 +7,24 @@
         android:icon="@drawable/ic_for_you_50"
         android:orderInCategory="2"
         android:title="@string/profile_menu_item"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <item
         android:id="@+id/followingPosts"
         android:icon="@drawable/ic_team"
         android:orderInCategory="2"
         android:title="@string/following_post_menu_item"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="1"
         android:title="@string/search_menu_item"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
 </menu>
 

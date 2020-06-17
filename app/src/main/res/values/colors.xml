@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#00BDFF</color>
-    <color name="primary_dark">#005B7F</color>
+    <color name="primary">#6200EE</color>
+    <color name="primary_dark">#3700B3</color>
     <color name="primary_light">#D7CCC8</color>
     <color name="dart_transparent">#81000000</color>
 
@@ -11,6 +11,11 @@
 
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+
+    <color name="page1">#aa96da</color>
+    <color name="page2">#a8d8ea</color>
+    <color name="page3">#fcbad3</color>
+    <color name="page4">#ffffd2</color>
 
     <color name="custom_divider_color">#dfdfdf</color>
     <color name="highlight_text">#17a1d7</color>

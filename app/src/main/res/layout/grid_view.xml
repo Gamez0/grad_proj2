@@ -7,11 +7,12 @@
     tools:context=".main.grid.GridActivity">
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="#000000"
-        app:tabTextColor="#aaaaaa"
-        android:animateLayoutChanges="false">
+        app:tabSelectedTextColor="@color/primary"
+        app:tabTextColor="#000000"
+        android:animateLayoutChanges="false"
+        app:tabIndicatorColor="@color/primary">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

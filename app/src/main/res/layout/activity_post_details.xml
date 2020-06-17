@@ -207,7 +207,8 @@
                 android:layout_alignTop="@+id/prayerForContainer"
                 android:layout_margin="@dimen/large_intrinsic_padding"
                 android:clickable="true"
-                android:src="@drawable/ic_add_white_48dp"
+                app:srcCompat="@drawable/ic_play"
+
                 app:backgroundTint="@color/primary" />
 <!--            <com.rozdoum.socialcomponents.views.CircularImageView-->
 <!--                android:id="@+id/addToMyPrayList"-->
