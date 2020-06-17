@@ -45,9 +45,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.speech.tts.TextToSpeech;
+
+import static android.speech.tts.TextToSpeech.ERROR;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,6 +79,7 @@ import com.praylist.socialcomponents.utils.GlideApp;
 import com.praylist.socialcomponents.utils.ImageUtil;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetailsPresenter> implements PostDetailsView, EditCommentDialog.CommentDialogCallback {
@@ -106,6 +111,11 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private TextView prayerForTextView;
     private ImageView addToMyPrayListView;
 
+    //tts
+    ImageView btn_tts;
+    private int flag=0;
+    private TextToSpeech tts;
+
     private MediaPlayer player = new MediaPlayer();
     Random rand = new Random();
 
@@ -134,6 +144,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        btn_tts = findViewById(R.id.item_tts);
 
         postManager = PostManager.getInstance(this);
 
@@ -187,7 +198,35 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
                 }
             });
         }
+        //tts
+        //text를 음성으로 나레이션
+        tts=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != ERROR){
+                    //한국어로
+                    tts.setLanguage(Locale.KOREAN);
+                }
+            }
+        });
+        //버튼누르면 재생.
+        btn_tts.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            public void onClick(View view){
+                if(flag==0) {
+                    flag=1;
+                    //tts.setPitch(0.5f);//음성톤
+                    tts.setSpeechRate(0.5f);//읽는 속도 0.5로 느리게.
 
+                    tts.speak(descriptionEditText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "");
+                }else {
+                    flag=0;
+                    tts.stop();
+
+                }
+            }
+
+        });
         initRecyclerView();
         initListeners();
 
@@ -199,6 +238,11 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     protected void onDestroy() {
         super.onDestroy();
         postManager.closeListeners(this);
+        if(tts!=null){
+            tts.stop();
+            tts.shutdown();
+            tts=null;
+        }
     }
 
     @NonNull

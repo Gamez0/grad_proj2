@@ -93,7 +93,15 @@
                     android:layout_marginRight="@dimen/intrinsic_padding"
                     android:textAppearance="@style/TextAppearance.Highlight" />
 
+                <ImageView
+                    android:id="@+id/item_tts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_record_voice_over_black_24dp"
 
+                    />
             </LinearLayout>
 
 
