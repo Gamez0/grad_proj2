@@ -94,7 +94,7 @@ public class EmoAdapter extends BaseAdapter {
                 convertView.setBackgroundColor(Color.parseColor("#ffffd2"));
                 break;
             case 4:
-                convertView.setBackgroundColor(Color.parseColor("#bb3b0e"));
+                convertView.setBackgroundColor(Color.parseColor("#CEF76E"));
                 break;
         }
         return convertView;
