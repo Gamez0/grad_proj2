@@ -32,7 +32,7 @@
     <string name="title_activity_who_can_read">공개 범위</string>
     <string name="title_activity_prayer_for">누구를 위한</string>
 
-    <string name="font_primary">@font/nanumbarunpenr</string>
+    <string name="font_primary">@font/ggil</string>
     <string name="font_primary_bold">@font/nanumbarunpenb</string>
 
     <string name="text_take_photo">Take photo</string>
