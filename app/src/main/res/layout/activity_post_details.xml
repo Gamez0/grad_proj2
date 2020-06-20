@@ -211,6 +211,19 @@
                 app:srcCompat="@drawable/ic_play"
 
                 app:backgroundTint="@color/primary" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/makeNewMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/addToMyPrayList"
+                android:layout_margin="@dimen/large_intrinsic_padding"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_song"
+
+                app:backgroundTint="@color/primary" />
 <!--            <com.rozdoum.socialcomponents.views.CircularImageView-->
 <!--                android:id="@+id/addToMyPrayList"-->
 <!--                android:layout_width="@dimen/post_author_image_side"-->

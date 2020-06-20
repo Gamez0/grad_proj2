@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
         emotionType = getIntent().getExtras().getInt("emotion");
 
-        Toast.makeText(getApplicationContext(),"onCreate() called. emotionType is "+emotionType,Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(),"onCreate() called. emotionType is "+emotionType,Toast.LENGTH_LONG).show();
         initContentView();
     }
 

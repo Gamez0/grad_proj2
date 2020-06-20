@@ -27,10 +27,13 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Transition;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,6 +49,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.speech.tts.TextToSpeech;
+import android.widget.Toast;
 
 import static android.speech.tts.TextToSpeech.ERROR;
 
@@ -110,6 +114,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private TextView warningCommentsTextView;
     private TextView prayerForTextView;
     private ImageView addToMyPrayListView;
+    private ImageView makeNewMusic;
 
     //tts
     ImageView btn_tts;
@@ -135,6 +140,16 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private ActionMode mActionMode;
     private boolean isEnterTransitionFinished = false;
     private Button sendButton;
+
+    private Handler mHandler;
+
+    private HandlerThread mHandlerThread;
+
+    public void startHandlerThread(){
+        mHandlerThread = new HandlerThread("HandlerThread");
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +192,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         sendButton = findViewById(R.id.sendButton);
         prayerForTextView = findViewById(R.id.prayerForTextView);
         addToMyPrayListView = findViewById(R.id.addToMyPrayList);
+        makeNewMusic = findViewById(R.id.makeNewMusic);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && isAuthorAnimationRequired) {
             authorImageView.setScaleX(0);
@@ -332,6 +348,35 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
             }
 
+        });
+
+        makeNewMusic.setOnClickListener(v-> {
+            // when we get request for new music
+            Toast toast = Toast.makeText(this, "세상에 하나 뿐인 노래 작곡 중\n예상 30-50sec", Toast.LENGTH_SHORT);
+            TextView text1 = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( text1 != null) text1.setGravity(Gravity.CENTER);
+            toast.show();
+//            Toast.makeText(getApplicationContext(),"세상에 하나 뿐인 노래를 만드는 중\n예상 30-50sec",Toast.LENGTH_LONG).show();
+
+            //after several sec
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(),"작곡 완료! 재생 버튼을 눌러보세요",Toast.LENGTH_LONG).show();
+                    // send request to server
+                    // build music
+                    // receive music
+                    // set music to be played
+                }
+            }, 40000);
+
+//            mHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Toast.makeText(getApplicationContext(),"작곡 완료! 재생 버튼을 눌러보세요",Toast.LENGTH_LONG).show();
+//                }
+//            },40000);
         });
 
         likesContainer.setOnClickListener(v -> {

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.adapters.CardFragmentPagerAdapter;
 import com.praylist.socialcomponents.adapters.CardPagerAdapter;
@@ -34,6 +35,8 @@ public class viewPagerActivity extends AppCompatActivity implements ViewPager.On
 
     private ValueAnimator mColorAnimation;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     Integer[] colors = null;
     Integer color1, color2, color3, color4;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
@@ -42,6 +45,14 @@ public class viewPagerActivity extends AppCompatActivity implements ViewPager.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
+
+        // in app testing
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle params = new Bundle();
+        params.putString("image_name", "테스트 메시지");
+        params.putString("full_text", "in app messaging test 중입니다.");
+        mFirebaseAnalytics.logEvent("makeNewMusic", params);
+
 
         color1 = getResources().getColor(R.color.page1);
         color2 = getResources().getColor(R.color.page2);

@@ -87,19 +87,19 @@ public class GridActivity extends AppCompatActivity {
                 switch (position){
                     // 감정을 누르면 이동할 fragment 부르거나 intent
                     case 0:
-                        Toast.makeText(getApplicationContext(), "감정 : 기쁨", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "감정 : 기쁨", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(), "감정 : 슬픔", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "감정 : 슬픔", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(getApplicationContext(), "감정 : 두려움", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "감정 : 두려움", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(getApplicationContext(), "감정 : 저항의지", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "감정 : 저항의지", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
-                        Toast.makeText(getApplicationContext(), "감정 : 자연", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "감정 : 자연", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 intent_emotion.putExtra("emotion",position);
