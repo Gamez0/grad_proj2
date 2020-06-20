@@ -363,7 +363,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(),"작곡 완료! 재생 버튼을 눌러보세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),titleTextView.getText()+" 작곡 완료! 재생 버튼을 눌러보세요",Toast.LENGTH_LONG).show();
                     // send request to server
                     // build music
                     // receive music
