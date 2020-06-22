@@ -66,7 +66,7 @@
                 android:id="@+id/authorContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
 
                 android:layout_marginTop="@dimen/large_intrinsic_padding"
                 android:layout_marginBottom="@dimen/intrinsic_padding"
@@ -78,8 +78,6 @@
                     android:id="@+id/authorLabelTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/intrinsic_padding"
-
                     android:text="@string/posted_by_label"
                     android:textAppearance="@style/TextAppearance.Second.Light"
                     android:visibility="invisible"/>
@@ -91,7 +89,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="@dimen/intrinsic_padding"
-                    android:textAppearance="@style/TextAppearance.Highlight" />
+                    android:fontFamily="@string/font_primary"
+                    android:textSize="20sp"
+                    />
 
                 <ImageView
                     android:id="@+id/item_tts"
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@string/font_primary"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:layout_marginBottom="@dimen/large_intrinsic_padding"
                 android:layout_marginTop="@dimen/large_intrinsic_padding"
                 android:paddingLeft="@dimen/large_intrinsic_padding"
@@ -155,9 +155,8 @@
                 android:id="@+id/prayerForLabelTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/intrinsic_padding"
 
-                android:text="@string/prayer_for"
+                android:text="「"
                 android:textAppearance="@style/TextAppearance.Second.Light" />
 
             <TextView
@@ -165,10 +164,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@string/font_primary"
+                android:textSize="18sp"
                 android:textAppearance="@style/TextAppearance.Second.Dark" />
 
+                <TextView
+                    android:id="@+id/prayerForLabelTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="」"
+                    android:textAppearance="@style/TextAppearance.Second.Light" />
 
-            <include
+                <include
                 android:id="@+id/countersContainer"
                 layout="@layout/counters_panel"
                 android:layout_width="wrap_content"

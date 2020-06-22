@@ -63,6 +63,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.praylist.socialcomponents.R;
 import com.praylist.socialcomponents.adapters.CommentsAdapter;
 import com.praylist.socialcomponents.controllers.LikeController;
@@ -74,6 +81,7 @@ import com.praylist.socialcomponents.main.imageDetail.ImageDetailActivity;
 import com.praylist.socialcomponents.main.post.addPost.AddPostActivity;
 import com.praylist.socialcomponents.main.post.editPost.EditPostActivity;
 import com.praylist.socialcomponents.main.profile.ProfileActivity;
+import com.praylist.socialcomponents.managers.DatabaseHelper;
 import com.praylist.socialcomponents.managers.PostManager;
 import com.praylist.socialcomponents.model.Comment;
 import com.praylist.socialcomponents.model.Post;
@@ -81,7 +89,10 @@ import com.praylist.socialcomponents.utils.AnimationUtils;
 import com.praylist.socialcomponents.utils.FormatterUtil;
 import com.praylist.socialcomponents.utils.GlideApp;
 import com.praylist.socialcomponents.utils.ImageUtil;
+import com.praylist.socialcomponents.utils.LogUtil;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -92,6 +103,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     public static final String AUTHOR_ANIMATION_NEEDED_EXTRA_KEY = "PostDetailsActivity.AUTHOR_ANIMATION_NEEDED_EXTRA_KEY";
     public static final int UPDATE_POST_REQUEST = 1;
     public static final String POST_STATUS_EXTRA_KEY = "PostDetailsActivity.POST_STATUS_EXTRA_KEY";
+    public static final List<String> EMOTION = Collections.unmodifiableList(Arrays.asList("funny", "sad", "scared","anger","nature"));
 
     private EditText commentEditText;
     @Nullable
@@ -121,7 +133,8 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private int flag=0;
     private TextToSpeech tts;
 
-    private MediaPlayer player = new MediaPlayer();
+    public MediaPlayer player = new MediaPlayer();
+    public MediaPlayer player2 = new MediaPlayer();
     Random rand = new Random();
 
     private MenuItem complainActionMenuItem;
@@ -142,8 +155,9 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private Button sendButton;
 
     private Handler mHandler;
-
     private HandlerThread mHandlerThread;
+
+    public long cnt;
 
     public void startHandlerThread(){
         mHandlerThread = new HandlerThread("HandlerThread");
@@ -342,6 +356,10 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 //                    player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
 //                    player.prepare();
                     player.start();
+                    // 여기서 재생이 되었다고 알려주자
+
+//                    getPlayerCounter();
+//                    setPlayerCounter(); // cnt 증가
                     Log.d(TAG,"playing from activity.");
                 }
             } catch (Exception e){
@@ -351,11 +369,15 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         });
 
         makeNewMusic.setOnClickListener(v-> {
+            increasePlayedCounter();
             // when we get request for new music
+//            reinitMidi(300);
+
             Toast toast = Toast.makeText(this, "세상에 하나 뿐인 노래 작곡 중\n예상 30-50sec", Toast.LENGTH_SHORT);
             TextView text1 = (TextView) toast.getView().findViewById(android.R.id.message);
             if( text1 != null) text1.setGravity(Gravity.CENTER);
             toast.show();
+
 //            Toast.makeText(getApplicationContext(),"세상에 하나 뿐인 노래를 만드는 중\n예상 30-50sec",Toast.LENGTH_LONG).show();
 
             //after several sec
@@ -396,15 +418,16 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         });
     }
     private void initMidi(){
-        int num = rand.nextInt(30); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개
+        int num = rand.nextInt(20); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개 30 - 10
         if(emotionType==1){
-            num = rand.nextInt(10);
+            num = rand.nextInt(7); // 10-3
         }
         postManager.getMidiStorageRef("output"+num+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 try{
                     player.setDataSource(uri.toString());
+                    Log.d(TAG,"initmidi :" + uri);
                     player.prepare();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -412,6 +435,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             }
         });
     }
+
     private void initRecyclerView() {
         commentsAdapter = new CommentsAdapter();
         commentsAdapter.setCallback(new CommentsAdapter.Callback() {
@@ -505,51 +529,12 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     @Override
     public void setPrayerFor(String prayerFor, String username) {
         prayerForTextView.setText(username);
-//        if(prayerFor.equals("J")){
-//            prayerForTextView.setText("Jesus");
-//        }else if(prayerFor.equals("O")){
-//            prayerForTextView.setText("Others");
-//        }else if(prayerFor.equals("Y")){
-//            prayerForTextView.setText("You");
-//        }else{
-//            prayerForTextView.setText(prayerFor);
-//        }
     }
 
     @Override
     public void openAddPostActivity(String prayer, String username, String authorId) {
         // 여기를 누르면 음악이 재생되게 하자
 
-
-        try {
-//            MediaPlayer player = new MediaPlayer();
-//
-//            if(player.isPlaying()){
-//                player.stop();
-//            }else{
-//                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//                player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
-//                player.prepare();
-//                player.start();
-//                Log.d(TAG,"playing from activity.");
-//            }
-
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-//        String prayerFor = username;
-//        String prayerForId = authorId;
-//
-//        Intent intent = new Intent(this, AddPostActivity.class);
-//        intent.putExtra(AddPostActivity.POST_EXTRA_KEY,prayer);
-//        intent.putExtra(AddPostActivity.USERNAME_EXTRA_KEY,prayerFor);
-//        intent.putExtra(AddPostActivity.AUTHOR_EXTRA_KEY,prayerForId);
-//        startActivityForResult(intent, AddPostActivity.CREATE_NEW_POST_REQUEST);
-
-//        Intent intent = new Intent(PostDetailsActivity.this, EditPostActivity.class);
-//        intent.putExtra(EditPostActivity.POST_EXTRA_KEY, post);
-//        startActivityForResult(intent, EditPostActivity.EDIT_POST_REQUEST);
     }
 
     @Override
@@ -788,5 +773,28 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void increasePlayedCounter() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("cnt"+emotionType).child(EMOTION.get((int)emotionType));
+        myRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Integer currentValue = mutableData.getValue(Integer.class);
+                if (currentValue == null) {
+                    mutableData.setValue(1);
+                } else {
+                    mutableData.setValue(currentValue + 1);
+                }
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                LogUtil.logInfo(TAG, "Updating Watchers count transaction is completed.");
+            }
+        });
+
     }
 }

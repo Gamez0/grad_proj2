@@ -77,6 +77,7 @@
         android:layout_margin="@dimen/large_intrinsic_padding"
         android:clickable="true"
         android:src="@drawable/ic_add_white_48dp"
-        app:backgroundTint="@color/primary" />
+        app:backgroundTint="@color/primary"
+        android:visibility="invisible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

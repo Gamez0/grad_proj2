@@ -84,8 +84,8 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
         Button playMusicButton = (Button) view.findViewById(R.id.playMusicButton);
 //        mediaPlayer = MediaPlayer.create(view.getContext(),R.raw.horror);
-        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.horror);
-        mediaPlayer1 = MediaPlayer.create(view.getContext(),R.raw.lionking);
+        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.firstpoet);
+        mediaPlayer1 = MediaPlayer.create(view.getContext(),R.raw.secondpoet);
 
         titleTextView.setText(item.getTitle());
         contentTextView.setText(item.getText());
@@ -107,28 +107,24 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                 // 우선 가라로 구현한다.
                 if(cnt==0){
                     if(mediaPlayer0.isPlaying()){
-                        Toast.makeText(v.getContext(), "호러 중지", Toast.LENGTH_SHORT).show();
                         mediaPlayer0.pause();
                         mediaPlayer0.seekTo(0);
                         cnt=1;
                         mediaPlayer0.setNextMediaPlayer(mediaPlayer1);
 //                    playButton1.setBackgroundResource(R.drawable.ic_play);
                     }else{
-                        Toast.makeText(v.getContext(), "호러 재생", Toast.LENGTH_SHORT).show();
                         mediaPlayer0.start();
 //                    playButton1.setBackgroundResource(R.drawable.ic_pause);
                     }
                 }else if(cnt==1){
 
                     if(mediaPlayer0.isPlaying()){
-                        Toast.makeText(v.getContext(), "라이온킹 중지", Toast.LENGTH_SHORT).show();
                         mediaPlayer0.pause();
                         mediaPlayer0.seekTo(0);
                         cnt=0;
 //                        mediaPlayer0.setNextMediaPlayer(mediaPlayer);
 //                    playsButton1.setBackgroundResource(R.drawable.ic_play);
                     }else{
-                        Toast.makeText(v.getContext(), "라이온킹 재생", Toast.LENGTH_SHORT).show();
                         mediaPlayer0.seekTo(65000);
                         mediaPlayer0.start();
 //                    playButton1.setBackgroundResource(R.drawable.ic_pause);

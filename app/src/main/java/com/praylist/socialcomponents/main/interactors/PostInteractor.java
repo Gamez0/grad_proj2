@@ -77,7 +77,7 @@ public class PostInteractor {
         try {
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/" + DatabaseHelper.EMOTION.get(3) +"/"+ post.getId(), postValues);
+            childUpdates.put("/" + DatabaseHelper.EMOTION.get(4) +"/"+ post.getId(), postValues);
 
 //            childUpdates.put("/" + DatabaseHelper.EMOTION_4+ "/" + post.getId(), postValues);
             databaseHelper.getDatabaseReference().updateChildren(childUpdates);

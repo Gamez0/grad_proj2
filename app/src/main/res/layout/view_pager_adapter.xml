@@ -50,17 +50,17 @@
 
             <Button
                 style="@style/ButtonStyle"
-                android:background="@drawable/btn_style"
+                android:background="@drawable/ic_play_primary_color"
                 android:id="@+id/playMusicButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
 
 
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/hum"
-                android:text="음악 재생" />
+                />
         </RelativeLayout>
 
     </FrameLayout>
