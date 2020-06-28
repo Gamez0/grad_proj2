@@ -22,7 +22,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private List<CardView> mViews;
     private List<CardItem> mData;
     private float mBaseElevation;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
     private MediaPlayer mediaPlayer0= new MediaPlayer();
     private MediaPlayer mediaPlayer1= new MediaPlayer();
     int cnt =0;
@@ -106,12 +105,12 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
             public void onClick(View v) {
                 // 우선 가라로 구현한다.
                 if(cnt==0){
+
                     if(mediaPlayer0.isPlaying()){
-                        mediaPlayer0.pause();
-                        mediaPlayer0.seekTo(0);
-                        cnt=1;
-                        mediaPlayer0.setNextMediaPlayer(mediaPlayer1);
-//                    playButton1.setBackgroundResource(R.drawable.ic_play);
+                        mediaPlayer0.stop();
+                        mediaPlayer0.release();
+                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.secondpoet);
+                        cnt++;
                     }else{
                         mediaPlayer0.start();
 //                    playButton1.setBackgroundResource(R.drawable.ic_pause);
@@ -119,15 +118,37 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                 }else if(cnt==1){
 
                     if(mediaPlayer0.isPlaying()){
-                        mediaPlayer0.pause();
-                        mediaPlayer0.seekTo(0);
-                        cnt=0;
-//                        mediaPlayer0.setNextMediaPlayer(mediaPlayer);
-//                    playsButton1.setBackgroundResource(R.drawable.ic_play);
+                        mediaPlayer0.stop();
+                        mediaPlayer0.release();
+                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.thirdpoet);
+                        cnt++;
                     }else{
-                        mediaPlayer0.seekTo(65000);
                         mediaPlayer0.start();
 //                    playButton1.setBackgroundResource(R.drawable.ic_pause);
+                    }
+                }else if(cnt==2){
+
+                    if(mediaPlayer0.isPlaying()){
+                        mediaPlayer0.stop();
+                        mediaPlayer0.release();
+                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.fourthpoet);
+                        cnt++;
+                    }else{
+//                        mediaPlayer0.stop();
+//                        mediaPlayer0.release();
+//                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.fourthpoet);
+                        mediaPlayer0.start();
+                    }
+                }else if(cnt==3){
+
+                    if(mediaPlayer0.isPlaying()){
+                        mediaPlayer0.stop();
+                        mediaPlayer0.release();
+                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.firstpoet);
+                        cnt=0;
+                    }else{
+
+                        mediaPlayer0.start();
                     }
                 }
             }

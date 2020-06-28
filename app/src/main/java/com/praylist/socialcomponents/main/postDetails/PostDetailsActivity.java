@@ -157,7 +157,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     private Handler mHandler;
     private HandlerThread mHandlerThread;
 
-    public long cnt;
+    public boolean newRequst;
 
     public void startHandlerThread(){
         mHandlerThread = new HandlerThread("HandlerThread");
@@ -181,7 +181,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         postId = getIntent().getStringExtra(POST_ID_EXTRA_KEY);
         emotionType = getIntent().getExtras().getLong("emotion");
 
-        initMidi(); // 미디 초기화
+        initMidi(0); // 미디 초기화
 
         incrementWatchersCount();
 
@@ -273,6 +273,14 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             tts.shutdown();
             tts=null;
         }
+        if(player!=null){
+            player.release();
+            player=null;
+        }
+        if(player2!=null){
+            player2.release();
+            player2=null;
+        }
     }
 
     @NonNull
@@ -348,20 +356,40 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 //        addToMyPrayListView.setOnClickListener(v->presenter.onAddButtonClick(addToMyPrayListView));
         addToMyPrayListView.setOnClickListener(v-> {
             try{
-                if(player.isPlaying()){
-                    player.seekTo(0);
-                    player.pause();
+                if(newRequst){
+                    if(player2.isPlaying()){
+                        int num = rand.nextInt(5);
+                        if(num!=0){
+                            player2.seekTo(num*1000+5000);
+                        }
+                        else{
+                            player2.seekTo(10000);
+                        }
+
+                        player2.pause();
+                    }else{
+                        player2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        player2.start();
+
+                        Log.d(TAG,"playing player2 from activity.");
+                    }
                 }else{
-                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    if(player.isPlaying()){
+                        player.seekTo(0);
+                        player.pause();
+                    }else{
+                        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 //                    player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
 //                    player.prepare();
-                    player.start();
-                    // 여기서 재생이 되었다고 알려주자
+                        player.start();
+                        // 여기서 재생이 되었다고 알려주자
 
 //                    getPlayerCounter();
 //                    setPlayerCounter(); // cnt 증가
-                    Log.d(TAG,"playing from activity.");
+                        Log.d(TAG,"playing from activity.");
+                    }
                 }
+
             } catch (Exception e){
 
             }
@@ -377,14 +405,17 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             TextView text1 = (TextView) toast.getView().findViewById(android.R.id.message);
             if( text1 != null) text1.setGravity(Gravity.CENTER);
             toast.show();
+            newRequst=true;
 
-//            Toast.makeText(getApplicationContext(),"세상에 하나 뿐인 노래를 만드는 중\n예상 30-50sec",Toast.LENGTH_LONG).show();
 
+            // media player 새로 설정해주기ㅑ
+//            initMidi(5);
             //after several sec
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    newRequst=true;
                     Toast.makeText(getApplicationContext(),titleTextView.getText()+" 작곡 완료! 재생 버튼을 눌러보세요",Toast.LENGTH_LONG).show();
                     // send request to server
                     // build music
@@ -417,23 +448,44 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             return false;
         });
     }
-    private void initMidi(){
-        int num = rand.nextInt(20); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개 30 - 10
+    private void initMidi(int retry){
+        int num = rand.nextInt(20+retry); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개 30 - 10
         if(emotionType==1){
-            num = rand.nextInt(7); // 10-3
+            num = rand.nextInt(7+retry); // 10-3
         }
         postManager.getMidiStorageRef("output"+num+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 try{
                     player.setDataSource(uri.toString());
+//                    player = MediaPlayer.create(getApplicationContext(),)
                     Log.d(TAG,"initmidi :" + uri);
                     player.prepare();
+//                    if(retry!=0){
+//                        player.seekTo(retry*500);
+//                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         });
+        postManager.getMidiStorageRef("output"+(num+1)+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                try{
+                    player2.setDataSource(uri.toString());
+//                    player = MediaPlayer.create(getApplicationContext(),)
+                    Log.d(TAG,"initmidi :" + uri);
+                    player2.prepare();
+//                    if(retry!=0){
+//                        player.seekTo(retry*500);
+//                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     private void initRecyclerView() {
