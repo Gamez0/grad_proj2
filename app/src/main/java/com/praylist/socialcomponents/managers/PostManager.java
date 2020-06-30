@@ -44,7 +44,7 @@ import com.praylist.socialcomponents.utils.*;
  */
 
 public class PostManager extends FirebaseListenersManager {
-
+    // 요구된 post를 display하기 위해서 필요한 function들이 구현되어 있는 곳이다.
     private static final String TAG = PostManager.class.getSimpleName();
     private static PostManager instance;
     private int newPostsCounter = 0;
