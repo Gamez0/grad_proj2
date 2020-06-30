@@ -15,6 +15,7 @@ import com.praylist.socialcomponents.model.EmoItem;
 import java.util.ArrayList;
 
 public class EmoAdapter extends BaseAdapter {
+    // 각 감정별로 분류된 gridview를 위한 adapter
     private Context context;
     private LayoutInflater inflater;
     ArrayList<EmoItem> emoList;
@@ -47,6 +48,7 @@ public class EmoAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
+        // 각 감정이 선택되면 어떤 감정이 선택되었는지 return
         if(position==0){
             return 0;
         }else if(position==1){
@@ -64,6 +66,7 @@ public class EmoAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // gridview의 item을 세팅
         GridView grid = (GridView)parent;
         int size = grid.getColumnWidth();
 
@@ -80,7 +83,7 @@ public class EmoAdapter extends BaseAdapter {
         emoName.setText(emoList.get(position).getName());
         emoSubName.setText(emoList.get(position).getSubName());
 
-        switch(position){
+        switch(position){   // 각 감정마다 다른 색깔을 함으로 ui 차별화 및 시각화 효과
             case 0:
                 convertView.setBackgroundColor(Color.parseColor("#a8d8ea"));
                 break;
