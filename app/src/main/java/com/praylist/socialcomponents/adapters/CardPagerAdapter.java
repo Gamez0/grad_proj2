@@ -82,28 +82,15 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
         TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
         Button playMusicButton = (Button) view.findViewById(R.id.playMusicButton);
-//        mediaPlayer = MediaPlayer.create(view.getContext(),R.raw.horror);
         mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.firstpoet);
         mediaPlayer1 = MediaPlayer.create(view.getContext(),R.raw.secondpoet);
 
         titleTextView.setText(item.getTitle());
         contentTextView.setText(item.getText());
-//        switch(num){
-//            case 0:
-//                mediaPlayer = MediaPlayer.create(view.getContext(),R.raw.horror);
-//                break;
-//            case 1:
-//                mediaPlayer = MediaPlayer.create(view.getContext(),R.raw.lionking);
-//                break;
-//            case 2:
-//                break;
-//        }
 
-//        mediaPlayer.setNextMediaPlayer(mediaPlayer0);
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 우선 가라로 구현한다.
                 if(cnt==0){
 
                     if(mediaPlayer0.isPlaying()){
@@ -113,7 +100,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                         cnt++;
                     }else{
                         mediaPlayer0.start();
-//                    playButton1.setBackgroundResource(R.drawable.ic_pause);
+
                     }
                 }else if(cnt==1){
 
@@ -124,7 +111,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                         cnt++;
                     }else{
                         mediaPlayer0.start();
-//                    playButton1.setBackgroundResource(R.drawable.ic_pause);
                     }
                 }else if(cnt==2){
 
@@ -134,9 +120,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                         mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.fourthpoet);
                         cnt++;
                     }else{
-//                        mediaPlayer0.stop();
-//                        mediaPlayer0.release();
-//                        mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.fourthpoet);
                         mediaPlayer0.start();
                     }
                 }else if(cnt==3){

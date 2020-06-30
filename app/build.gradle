@@ -97,6 +97,8 @@ dependencies {
 //    implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

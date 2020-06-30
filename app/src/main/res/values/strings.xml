@@ -121,7 +121,7 @@
 <!--    <string name="complain_text">You can complain to this post if it contains violence,-->
 <!--        bullying and threats, hate speech, tragic events and sexually explicit contents.-->
 <!--        Nobody will see the post if you complain to it. You can\'t delete your complain.</string>-->
-    <string name="complain_text">이 리스트가 폭력, 혐오, 부적절한 광고 또는 이단인 경우 신고 할수 있습니다. \n신고는 접수되면 취소가 불가능합니다. </string>
+    <string name="complain_text">부적절한 시인 경우... </string>
 
     <string name="send_comment_button_label">전송</string>
     <string name="posted_by_label"> </string>

@@ -90,7 +90,12 @@ import com.praylist.socialcomponents.utils.FormatterUtil;
 import com.praylist.socialcomponents.utils.GlideApp;
 import com.praylist.socialcomponents.utils.ImageUtil;
 import com.praylist.socialcomponents.utils.LogUtil;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -381,6 +386,13 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
                         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 //                    player.setDataSource("https://firebasestorage.googleapis.com/v0/b/test-55ccb.appspot.com/o/midis%2Ffunny%2Foutput0.mid?alt=media&token=e6c69305-aac9-4f95-976f-b280c91c5e69");
 //                    player.prepare();
+                        int num = rand.nextInt(5);
+                        if(num!=0){
+                            player.seekTo(num*1000);
+                        }else{
+                            player.seekTo(6000);
+                        }
+
                         player.start();
                         // 여기서 재생이 되었다고 알려주자
 
@@ -401,17 +413,17 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
             // when we get request for new music
 //            reinitMidi(300);
 
-            Toast toast = Toast.makeText(this, "세상에 하나 뿐인 노래 작곡 중\n예상 30-50sec", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "세상에 하나 뿐인 노래 작곡 중\n예상 45-60sec", Toast.LENGTH_SHORT);
             TextView text1 = (TextView) toast.getView().findViewById(android.R.id.message);
             if( text1 != null) text1.setGravity(Gravity.CENTER);
             toast.show();
-            newRequst=true;
+//            newRequst=true;
 
 
             // media player 새로 설정해주기ㅑ
 //            initMidi(5);
             //after several sec
-
+            httpRequest();  // 요청 http로 보내기
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -421,8 +433,26 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
                     // build music
                     // receive music
                     // set music to be played
+                    postManager.getMidiStorageRef("newsong.mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try{
+                                player.stop();
+                                player.release();
+                                player.setDataSource(uri.toString());
+//                    player = MediaPlayer.create(getApplicationContext(),)
+                                Log.d(TAG,"initnewsong :" + uri);
+                                player.prepare();
+//                    if(retry!=0){
+//                        player.seekTo(retry*500);
+//                    }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
-            }, 40000);
+            }, 60000);
 
 //            mHandler.postDelayed(new Runnable() {
 //                @Override
@@ -449,9 +479,9 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         });
     }
     private void initMidi(int retry){
-        int num = rand.nextInt(20+retry); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개 30 - 10
-        if(emotionType==1){
-            num = rand.nextInt(7+retry); // 10-3
+        int num = rand.nextInt(45+retry); // 0부터 9까지 난수 생성 sad의 경우 곡이 10개 30 - 10
+        if(emotionType==2){
+            num = rand.nextInt(44+retry); // 10-3
         }
         postManager.getMidiStorageRef("output"+num+".mid", (int)emotionType).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -826,6 +856,31 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void httpRequest(){
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://192.168.43.113:5000/?emotion="+(int)emotionType;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if(response.isSuccessful()){
+                    // no need to do any thing in android
+                }
+            }
+        });
+    }
+
+
     public void increasePlayedCounter() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("cnt"+emotionType).child(EMOTION.get((int)emotionType));
