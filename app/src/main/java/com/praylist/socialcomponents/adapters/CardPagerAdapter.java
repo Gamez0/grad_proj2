@@ -84,11 +84,13 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         Button playMusicButton = (Button) view.findViewById(R.id.playMusicButton);
         mediaPlayer0 = MediaPlayer.create(view.getContext(),R.raw.firstpoet);
         mediaPlayer1 = MediaPlayer.create(view.getContext(),R.raw.secondpoet);
+        // 각자 mediaplayer를 선언하면 리소스가 부족하여 제대로 스트리밍이 되지 않는다.
 
         titleTextView.setText(item.getTitle());
         contentTextView.setText(item.getText());
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
+            // 재생 버튼이 눌리면 그 시에 맞는 음악을 재생해준다.
             @Override
             public void onClick(View v) {
                 if(cnt==0){
