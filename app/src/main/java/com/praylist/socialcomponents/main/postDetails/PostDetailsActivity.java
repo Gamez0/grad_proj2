@@ -177,7 +177,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
+        //tts 버튼
         btn_tts = findViewById(R.id.item_tts);
 
         postManager = PostManager.getInstance(this);
@@ -255,6 +255,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
                     tts.speak(descriptionEditText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "");
                 }else {
+                    //만약 이미 재생되고 있는데 다시 버튼이 눌렸다면.
                     flag=0;
                     tts.stop();
 
@@ -274,6 +275,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         super.onDestroy();
         postManager.closeListeners(this);
         if(tts!=null){
+            //낭송 중지.
             tts.stop();
             tts.shutdown();
             tts=null;
