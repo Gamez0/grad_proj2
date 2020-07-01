@@ -27,7 +27,7 @@ import java.util.Map;
 
 
 public class Post implements Serializable, LazyLoading {
-
+    // Poet item으로 구현되어 있음
     private String id;
     private String title;
     private String username;
@@ -186,7 +186,7 @@ public class Post implements Serializable, LazyLoading {
         this.emotionType = emotionType;
     }
 
-    public Map<String, Object> toMap() {
+    public Map<String, Object> toMap() { // 이렇게 데이터들이 맵핑되어 송수신이 된다.
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("title", title);

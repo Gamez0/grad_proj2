@@ -271,7 +271,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy() {    // 종료시 리소스 정리
         super.onDestroy();
         postManager.closeListeners(this);
         if(tts!=null){
@@ -316,7 +316,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {   // 뒤로가기 눌렸을 때
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 && isAuthorAnimationRequired
                 && !authorAnimationInProgress
@@ -361,7 +361,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
         authorImageView.setOnClickListener(v -> presenter.onAuthorClick(v));
         authorTextView.setOnClickListener(v -> presenter.onAuthorClick(v));
 //        addToMyPrayListView.setOnClickListener(v->presenter.onAddButtonClick(addToMyPrayListView));
-        addToMyPrayListView.setOnClickListener(v-> {
+        addToMyPrayListView.setOnClickListener(v-> {    // 재생 버튼, 재생 버튼을 눌렸을 때 음악이 재생하도록
             try{
                 if(newRequst){
                     if(player2.isPlaying()){
@@ -410,7 +410,8 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
         });
 
-        makeNewMusic.setOnClickListener(v-> {
+        makeNewMusic.setOnClickListener(v-> {   // 새로운 노래 작곡 요청
+            // 새로운 곡이 요청되었음을 firebase에 알려주기 위해서 감정별로 있는 request count값을 증가시켜준다
             increasePlayedCounter();
             // when we get request for new music
 //            reinitMidi(300);
@@ -860,6 +861,8 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
     }
 
     public void httpRequest(){
+        // 새로운 곡을 요청할  때 작곡 서버로 직접 요청을 보낸다
+        // 아래에 보이는 ip주소 요청을 보내면 된다.
         OkHttpClient client = new OkHttpClient();
         String url = "http://192.168.43.113:5000/?emotion="+(int)emotionType;
 
@@ -884,6 +887,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
 
     public void increasePlayedCounter() {
+        // 새로운 곡이 요청되었음을 가리키는 count값을 올려주는 function이다
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("cnt"+emotionType).child(EMOTION.get((int)emotionType));
         myRef.runTransaction(new Transaction.Handler() {
