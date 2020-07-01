@@ -255,7 +255,7 @@ public class PostDetailsActivity extends BaseActivity<PostDetailsView, PostDetai
 
                     tts.speak(descriptionEditText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "");
                 }else {
-                    //만약 이미 재생되고 있는데 다시 버튼이 눌렸다면.
+                    //만약 이미 재생되고 있는데 다시 버튼이 눌렸다면..
                     flag=0;
                     tts.stop();
 
